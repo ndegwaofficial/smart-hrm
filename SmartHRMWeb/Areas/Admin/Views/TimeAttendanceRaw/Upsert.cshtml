@@ -1,0 +1,154 @@
+﻿@model SmartHRM.Models.EmployeeGrade
+<div class="card shadow-none border border-300 mb-3">
+<form method="post" asp-action="Upsert" >
+    <div class="row">
+        <div class="col-12">
+            <div class="p-3 mt-4" row>
+                <div class="col-12 pb-2">
+                    <h4 class="text-primary">@(Model.Id != 0 ? "Update" : "Create")  Grade</h4>
+                    <hr />
+                </div>
+                <div asp-validation-summary="All"></div>
+                <input asp-for="Id" hidden />
+                <div class="mb-3 form-group">
+                    <label asp-for="GradeName"></label>
+                    <input asp-for="GradeName" class="form-control" />
+                    <span asp-validation-for="GradeName" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="LowerAmount"></label>                 
+                    <input asp-for="LowerAmount" class="form-control" />
+                    <span asp-validation-for="LowerAmount" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 col-6">
+                    <label asp-for="UpperAmount"></label>
+                    <input asp-for="UpperAmount" class="form-control" />
+                    <span asp-validation-for="UpperAmount" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 col-6">
+                    <label asp-for="DailyRate"></label>
+                    <input asp-for="DailyRate" class="form-control" />
+                    <span asp-validation-for="DailyRate" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 col-6">
+                    <label asp-for="HourlyRate"></label>
+                    <input asp-for="HourlyRate" class="form-control" />
+                    <span asp-validation-for="HourlyRate" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 col-6">
+                    <label asp-for="NightOutRate"></label>
+                    <input asp-for="NightOutRate" class="form-control" />
+                    <span asp-validation-for="NightOutRate" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 col-6">
+                    <label asp-for="PerDiemRate"></label>
+                    <input asp-for="PerDiemRate" class="form-control" />
+                    <span asp-validation-for="PerDiemRate" class="text-danger"></span>
+                </div>
+                <div class="mb-3 col-6">
+                    <label asp-for="TonnageRate"></label>
+                    <input asp-for="TonnageRate" class="form-control" />
+                    <span asp-validation-for="TonnageRate" class="text-danger"></span>
+                </div>
+                <div class="mb-3 col-6">
+                    <fieldset class="form-group">
+                        <legend class="mt-4"></legend>
+                        <div class="form-check">
+                            <input class="form-check-input" asp-for="opthourly" type="checkbox">
+                            <label class="form-check-label" asp-for="opthourly">
+                            </label>
+                            <span asp-validation-for="opthourly" class="text-danger"></span>
+                         
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" asp-for="optdaily" type="checkbox">
+                            <label class="form-check-label" asp-for="optdaily">
+                            </label>
+                            <span asp-validation-for="optdaily" class="text-danger"></span>                           
+                        </div>
+
+
+                        <div class="form-check">
+                            <input class="form-check-input" asp-for="opttonnage" type="checkbox">
+                            <label class="form-check-label" asp-for="opttonnage">
+                            </label>
+                            <span asp-validation-for="opttonnage" class="text-danger"></span>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" asp-for="multipleprocess" type="checkbox">
+                            <label class="form-check-label" asp-for="multipleprocess">
+                            </label>
+                            <span asp-validation-for="multipleprocess" class="text-danger"></span>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" asp-for="permanentemp" type="checkbox">
+                            <label class="form-check-label" asp-for="permanentemp">
+                            </label>
+                            <span asp-validation-for="permanentemp" class="text-danger"></span>
+                        </div>
+                       
+                    </fieldset>
+                </div>
+
+                               
+
+               
+               
+                <div class="mb-3 col-6">
+                    <label asp-for="maxtonne"></label>
+                    <input asp-for="maxtonne"  class="form-control" />
+                    <span asp-validation-for="maxtonne" class="text-danger"></span>
+                </div>
+                <div class="mb-3 col-6">
+                    <label asp-for="bonusrate"></label>
+                    <input asp-for="bonusrate" class="form-control" />
+                    <span asp-validation-for="bonusrate" class="text-danger"></span>
+                </div>
+                <div class="mb-3 col-6">
+                    <label asp-for="abovetonne"></label>
+                    <input asp-for="abovetonne" class="form-control" />
+                    <span asp-validation-for="abovetonne" class="text-danger"></span>
+                </div>
+                <div class="mb-3 col-6">
+                    <label asp-for="payfortonnes"></label>
+                    <input asp-for="payfortonnes" class="form-control" />
+                    <span asp-validation-for="payfortonnes" class="text-danger"></span>
+                </div>
+
+
+                <div class="col-12">
+                    @if (Model.Id != 0)
+                    {
+                            <button type="submit" class="btn btn-primary me-1 mb-1">Update</button>
+                    }
+                    else
+                    {
+                            <button type="submit" onclick="return ValidateInput()" class="btn btn-primary me-1 mb-1" >Create</button>
+                    }
+
+                        <a asp-controller="Grade" asp-action="Index" class="btn btn-secondary me-1 mb-1">
+                        Back to List
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+       
+    </div>   
+
+</form>
+</div>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+    
+}

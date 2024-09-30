@@ -1,0 +1,359 @@
+﻿
+@model SmartHRM.Models.ViewModels.EmployeeVM
+@using Microsoft.Extensions.Options
+@*@inject IOptions<SmartHRM.Utility.StripeSettings> Stripe*@
+
+
+<form method="post" asp-controller="Employee" asp-action="Upsert" enctype="multipart/form-data">
+	@Html.AntiForgeryToken()
+	<br />
+	<div class="container">
+		<div class="card">
+			<div class="card-header bg-dark text-light ml-0">
+				<div class=" row container">
+					<div class="col-6">
+						<i class="fa fa-sho"></i> &nbsp;
+						Employee Details
+					</div>
+					<div class="col-6 text-end">
+						<a asp-action="Index" class="btn btn-outline-info btn-sm">Back to List</a>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="container rounded p-2">
+					<div class="border p-3 mt-4 row">
+						<div class="col-12 col-lg-6 pb-4">							
+							<div class="row my-1">
+								<div class="col-3">
+									
+								</div>
+								<div class="col-9">
+									<h1> @Html.DisplayFor(model => model.Employee.EmpCode) </h1>									
+								</div>
+							</div>
+							<div class="row my-1">
+								<div class="col-3">
+									Name: 
+								</div>
+								<div class="col-9">
+									<h3>@Html.DisplayFor(model => model.Employee.FullName)</h3>
+								</div>
+							</div>
+							<div class="row my-1">
+								<div class="col-3">
+									<label asp-for="Employee.NationalID"></label>
+								</div>
+								<div class="col-9">
+									@Html.DisplayFor(model => model.Employee.NationalID)
+								</div>
+							</div>
+							<div class="row my-1">
+								<div class="col-3">
+									<label asp-for="Employee.Telephone"></label>
+								</div>
+								<div class="col-9">
+									@Html.DisplayFor(model => model.Employee.Telephone)
+								</div>
+							</div>
+							<div class="row my-1">
+								<div class="col-3">
+									<label asp-for="Employee.BasicPay"></label>
+								</div>
+								<div class="col-9">
+									@Html.DisplayFor(model => model.Employee.BasicPay)
+								</div>
+							</div>
+							<div class="row my-1">
+								<div class="col-3">
+									<label asp-for="Employee.ContractTypeId"></label>
+								</div>
+								<div class="col-9">
+									@Html.DisplayFor(model => model.Employee.ContractType.TypeName)
+								</div>
+							</div>				
+
+						</div>
+
+						<div class="col-12 col-lg-4 offset-lg-1">
+							<div class="form-group">
+								<div class="row g-3 mb-2">
+									
+									<div class="col-6">
+										@if(Model.Employee.Content != null)
+										{
+											<a href='@Url.Action("GetEmployeeImageFile", new { id = Model.Employee.Id})' data-gallery="gallery-photos" style="width:300px;height:208px; object-fit:cover">
+												<img class="w-300 h-208 rounded-3" src='@Url.Action("GetEmployeeImageFile", new { id = Model.Employee.Id})' alt="" />
+											</a>
+										}
+										else
+										{
+											@if (Model.Employee.GenderId==1)
+											{
+												<img src="~/images/employees/Male00.png" class="card-img-top rounded">
+											}
+											else
+											{
+												<img src="~/images/employees/Female00.png" class="card-img-top rounded">
+											}
+
+										}
+
+										
+									</div>									
+
+								</div>
+								<div class="col-12 col-sm-auto">
+									<table class="lh-sm">
+										<tbody>
+											<tr>
+												<td class="align-top py-1 text-900 text-nowrap fw-bold">Designation : </td>
+												<td class="text-600 fw-semi-bold ps-3">@Html.DisplayFor(model => model.Employee.Designation)</td>
+											</tr>
+											<tr>
+												<td class="align-top py-1 text-900 text-nowrap fw-bold">D.O.B : </td>
+												<td class="text-600 fw-semi-bold ps-3">@Html.DisplayFor(model => model.Employee.BirthDate)</td>
+											</tr>
+											<tr>
+												<td class="align-top py-1 text-900 text-nowrap fw-bold">Gender :</td>
+												<td class="text-600 fw-semi-bold ps-3">@Html.DisplayFor(model => model.Employee.Gender.GenderName)</td>
+											</tr>
+											<tr>
+												<td class="align-top py-1 text-900 text-nowrap fw-bold">Department :</td>
+												<td class="text-600 fw-semi-bold ps-3">@Html.DisplayFor(model => model.Employee.Department.DepartmentName)</td>
+											</tr>
+											<tr>
+                                                <td class="align-top py-1 text-900 text-nowrap fw-bold">Resume :</td>
+                                                <td class="text-600 fw-semi-bold ps-3">
+													<table class="lh-sm">
+														<tr>
+															<td>
+																<a asp-controller="Employee" asp-area="Admin" asp-action="UploadResumeImage" asp-route-id="@Model.Employee.Id" data-bs-toggle="tooltip" data-bs-original-title="Upload Resume" data-bs-placement="left" aria-label="Upload Resume">
+																	<span class="text-primary" data-feather="plus" style="height: 20px; width: 20px;"></span>
+																	Resume
+																</a>
+															</td>
+															@foreach (var file in Model.ListResumeFiles)
+															{
+																<td>
+																	<a href='@Url.Action("GetEmpResumeImageFile", new { id = file.Id})'
+																	   class="d-inline-flex align-items-center border rounded-pill px-3 py-1 me-3 mt-2 inbox-link">
+																		<span class="fas fa-file-pdf text-warning fs--1"></span>
+																		<span class="ms-2 fw-bold fs--2 text-900">@file.FileName</span>
+																	</a>
+																	<a onClick="Delete('/Admin/Employee/DeleteResume/@file.Id','File')" data-bs-toggle="tooltip" data-bs-original-title="Delete @file.FileName" data-bs-placement="left" aria-label="Delete the @file.FileName">
+																		<span class="text-danger" data-feather="trash" style="height: 10px; width: 10px;"></span>
+																	</a>
+																</td>
+
+															}
+														</tr>
+													</table>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+						
+							</div>
+						</div>
+
+					</div>
+
+
+					@* Employment details *@
+					<div class="border p-3 mt-4 row">
+						<div class="col-12 col-lg-12 pb-4">
+
+							<div class="col-12 col-sm-auto">
+
+								@*New Starts Here*@
+
+                                <div class="table-responsive scrollbar ms-n1 ps-1">
+                                    <table class="table table-sm fs--1 mb-0">
+										<thead>
+											<tr>
+												
+												<th class="align-middle" scope="col" data-sort="customer" style="width:15%; min-width:200px;">Name</th>
+												<th class="align-middle" scope="col" data-sort="email" style="width:15%; min-width:200px;">Statutory No</th>
+												<th class="align-middle pe-3" scope="col" data-sort="mobile_number" style="width:20%; min-width:200px;">Upload</th>
+												<th class="align-middle" scope="col" data-sort="city" style="width:21%;">Files</th>
+												
+											</tr>
+										</thead>
+                                        <tbody class="list" id="members-table-body">
+                                           
+											<tr class="hover-actions-trigger btn-reveal-trigger position-static">
+												<td class="fs--1 align-middle ps-0 py-3">I.D : </td>
+												<td class="customer align-middle white-space-nowrap">
+													@Html.DisplayFor(model => model.Employee.NationalID)													
+												</td>
+												<td>
+													<a asp-controller="Employee" asp-area="Admin" asp-action="UploadIdImage" asp-route-id="@Model.Employee.Id" data-bs-toggle="tooltip" data-bs-original-title="Upload Id" data-bs-placement="left" aria-label="Upload Id">
+														<span class="text-primary" data-feather="plus" style="height: 30px; width: 30px;"></span>
+														Upload Id
+													</a>
+												</td>
+												<td class="text-600 fw-semi-bold ps-3">
+													<table class="lh-sm">
+														<tr>
+															@foreach (var file in Model.ListIdFiles)
+															{
+																<td>
+																	<a href='@Url.Action("GetEmpIdImageFile", new { id = file.Id})'
+																	   class="d-inline-flex align-items-center border rounded-pill px-3 py-1 me-3 mt-2 inbox-link">
+																		<span class="fas fa-file-pdf text-warning fs--1"></span>
+																		<span class="ms-2 fw-bold fs--2 text-900">@file.FileName</span>
+																		<a onClick="Delete('/Admin/Employee/DeleteId/@file.Id','File')" data-bs-toggle="tooltip" data-bs-original-title="Delete @file.FileName" data-bs-placement="left" aria-label="Delete @file.FileName">
+																			<span class="text-danger" data-feather="trash" style="height: 10px; width: 10px;"></span>
+																		</a>
+																	</a>
+																	
+																</td>
+
+															}
+														</tr>
+													</table>
+
+												</td>
+											</tr>
+											<tr>
+												<td class="align-top py-1 text-900 text-nowrap fw-bold">P.I.N : </td>
+												<td class="text-600 fw-semi-bold ps-3">@Html.DisplayFor(model => model.Employee.KRAPin)</td>
+												<td>
+													<a asp-controller="Employee" asp-area="Admin" asp-action="UploadPinImage" asp-route-id="@Model.Employee.Id" data-bs-toggle="tooltip" data-bs-original-title="Upload Id" data-bs-placement="left" aria-label="Upload Id">
+														<span class="text-primary" data-feather="plus" style="height: 30px; width: 30px;"></span>
+														Upload PIN
+													</a>
+												</td>
+												<td class="text-600 fw-semi-bold ps-3">
+													<table class="lh-sm">
+														<tr>
+															@foreach (var file in Model.ListPinFiles)
+															{
+																<td>
+																	<a href='@Url.Action("GetEmpPinImageFile", new { id = file.Id})'
+																	   class="d-inline-flex align-items-center border rounded-pill px-3 py-1 me-3 mt-2 inbox-link">
+																		<span class="fas fa-file-pdf text-warning fs--1"></span>
+																		<span class="ms-2 fw-bold fs--2 text-900">@file.FileName
+																			<a onClick="Delete('/Admin/Employee/DeletePinImage/@file.Id','File')" data-bs-toggle="tooltip" data-bs-original-title="Delete PIN" data-bs-placement="left" aria-label="Delete the PIN">
+																				<span class="text-danger" data-feather="trash" style="height: 10px; width: 10px;"></span>
+																			</a>
+																		</span>
+
+																	</a>
+																	
+																</td>
+
+															}
+														</tr>
+													</table>
+
+												</td>
+											</tr>
+											<tr>
+												<td class="align-top py-1 text-900 text-nowrap fw-bold">N.H.I.F No :</td>
+												<td class="text-600 fw-semi-bold ps-3">@Html.DisplayFor(model => model.Employee.NHIFNo)</td>
+												<td>
+													<a asp-controller="Employee" asp-area="Admin" asp-action="UploadNhifImage" asp-route-id="@Model.Employee.Id" data-bs-toggle="tooltip" data-bs-original-title="Upload N.H.I.F" data-bs-placement="left" aria-label="Upload N.H.I.F">
+														<span class="text-primary" data-feather="plus" style="height: 30px; width: 30px;"></span>
+														Upload N.H.I.F
+													</a>
+												</td>
+												<td class="text-600 fw-semi-bold ps-3">
+													<table class="lh-sm">
+														<tr>
+															@foreach (var file in Model.ListNhifFiles)
+															{
+																<td>
+																	<a href='@Url.Action("GetEmpNhifImageFile", new { id = file.Id})'
+																	   class="d-inline-flex align-items-center border rounded-pill px-3 py-1 me-3 mt-2 inbox-link">
+																		<span class="fas fa-file-pdf text-warning fs--1"></span>
+																		<span class="ms-2 fw-bold fs--2 text-900">@file.FileName</span>
+																	</a>
+																	<a onClick="Delete('/Admin/Employee/DeleteNhifId/@file.Id','File')" data-bs-toggle="tooltip" data-bs-original-title="Delete @file.FileName" data-bs-placement="left" aria-label="Delete the @file.FileName">
+																		<span class="text-danger" data-feather="trash" style="height: 10px; width: 10px;"></span>
+																	</a>
+																</td>
+
+															}
+														</tr>
+													</table>
+
+												</td>
+											</tr>
+											<tr>
+												<td class="align-top py-1 text-900 text-nowrap fw-bold">N.S.S.F No :</td>
+												<td class="text-600 fw-semi-bold ps-3">@Html.DisplayFor(model => model.Employee.NSSFNo)</td>
+												<td>
+													<a asp-controller="Employee" asp-area="Admin" asp-action="UploadNssfImage" asp-route-id="@Model.Employee.Id" data-bs-toggle="tooltip" data-bs-original-title="Upload Nssf" data-bs-placement="left" aria-label="Upload Nssf">
+														<span class="text-primary" data-feather="plus" style="height: 30px; width: 30px;"></span>
+														Upload N.S.S.F
+													</a>
+												</td>
+												<td class="text-600 fw-semi-bold ps-3">
+													<table class="lh-sm">
+														<tr>
+															@foreach (var nssffile in Model.ListNssfFiles)
+															{
+																<td>
+																	<a href='@Url.Action("GetEmpNssfImageFile", new { id = nssffile.Id})'
+																	   class="d-inline-flex align-items-center border rounded-pill px-3 py-1 me-3 mt-2 inbox-link">
+																		<span class="fas fa-file-pdf text-warning fs--1"></span>
+																		<span class="ms-2 fw-bold fs--2 text-900">
+																			@nssffile.FileName
+																			<a onClick="Delete('/Admin/Employee/DeleteNssfImage/@nssffile.Id','File')" data-bs-toggle="tooltip" data-bs-original-title="Delete @nssffile.FileName" data-bs-placement="left" aria-label="Delete the @nssffile.FileName">
+																				<span class="text-danger" data-feather="trash" style="height: 10px; width: 10px;"></span>
+																			</a>
+																		</span>
+																	</a>
+																	
+																</td>
+
+															}
+														</tr>
+													</table>
+
+												</td>
+											</tr>
+                                           
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+
+								@*New Ends Here*@
+
+								
+							</div>
+
+						
+
+						
+						
+					</div>
+					@* End Employment details *@
+					
+					<div class="mt-1 d-flex align-items-center">
+						<a asp-controller="Employee" asp-action="Index" class="btn btn-secondary me-1 mb-1">
+							Back to List
+						</a>
+					</div>
+
+				</div>
+				
+			</div>
+		</div>
+</form>
+
+
+@section Scripts {
+	@{	
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+
+	<script src="~/js/Delete.js"></script>
+}
+
+

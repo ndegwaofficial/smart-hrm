@@ -1,0 +1,150 @@
+﻿@model SmartHRM.Models.ViewModels.CLoanVM
+@using SmartHRM.Utility
+
+<form method="post">
+	
+	<input asp-for="CLoan.Id" hidden />
+	<br />
+	<div class="container">
+		<div class="card">
+			<div class="card-header bg-dark text-light ml-0">
+				<div class="container row">
+					<div class="col-12 d-none d-md-block col-md-6 pb-1">
+						<i class="fas fa-shopping-cart"></i> &nbsp; Loan Summary
+					</div>
+					<div class="col-12 col-md-4 offset-md-2 text-right">
+						<a asp-action="Index" class="btn btn-outline-info form-control btn-sm">Back to Loan List</a>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="container rounded p-2">
+					<div class="row">
+						<div class="col-12 col-lg-6 pb-4">
+							<div class="row">
+								<h4 class="d-flex justify-content-between align-items-center mb-3">
+									<span class="text-primary">Loan Details:</span>
+								</h4>
+							</div>
+							<div class="row my-1">
+								<div class="col-3">Name</div>
+								<div class="col-9">									
+									<input asp-for="CLoan.Employee.FullName" readonly type="text" class="form-control" />									
+								</div>
+							</div>
+							<div class="row my-1">
+								<div class="col-3">Issurer</div>
+								<div class="col-9">									
+										<input asp-for="CLoan.PayrollCode.PayName" readonly type="text" class="form-control" />									
+								</div>
+							</div>
+							<div class="row my-1">
+								<div class="col-3">Loan Purpose</div>
+								<div class="col-9">
+									<input asp-for="CLoan.LoanDesc" readonly type="text" class="form-control" />
+								</div>
+							</div>
+							<div class="row my-1">
+								<div class="col-3">Start Period</div>
+								<div class="col-9">									
+									<input asp-for="CLoan.LoanStartPeriod" readonly type="text" class="form-control" />									
+								</div>
+							</div>
+							<div class="row my-1">
+								<div class="col-3">End Period</div>
+								<div class="col-9">
+									<input asp-for="CLoan.LoanEndPeriod" readonly type="text" class="form-control" />
+								</div>
+							</div>
+							<div class="row my-1">
+								<div class="col-3">Loan Amount</div>
+								<div class="col-9">									
+									<input asp-for="CLoan.LoanAmount" readonly type="text" class="form-control" />									
+								</div>
+							</div>
+							<div class="row my-1">
+								<div class="col-3">Stage Recovery</div>
+								<div class="col-9">									
+									<input asp-for="CLoan.UseStageRecov" readonly type="text" class="form-control" />									
+								</div>
+							</div>
+							<div class="row my-1">
+								<div class="col-3">No. Installments</div>
+								<div class="col-9">
+									<input asp-for="CLoan.NumberOfPeriods" readonly type="text" class="form-control" />
+								</div>
+							</div>
+							<div class="row my-1">
+								<div class="col-3">Interest Rate</div>
+								<div class="col-9">
+									<input asp-for="CLoan.InterestRate" readonly type="text" class="form-control" />
+								</div>
+							</div>
+			
+							<input type="submit" asp-action="UpdateOrderDetail" class="btn btn-warning form-control my-1" value="Update Loan Details" />
+
+
+
+						</div>
+						<div class="col-12 col-lg-5 offset-lg-1">
+							<h4 class="d-flex justify-content-between align-items-center mb-3">
+								<span class="text-primary">Schedule Summary</span>
+							</h4>
+							
+							<a class="btn btn-outline-primary form-control my-2" onClick=LoadSchedule('/Admin/CLoan/Loanschedule/${@Model.CLoan.Id}')>View Loan Schedule</a>
+							@* Schedule Iteration Here *@
+							
+							<ul class="list-group mb-3">
+								
+								<table class="table table-striped table-sm fs--1 mb-0" id="tblCLoanSchedule" width="100%">
+									<thead>
+										<tr>
+											<th class="sort border-top ps">No.</th>
+											<th class="sort border-top ps">Due Date</th>
+											<th class="sort border-top ps">Stage</th>
+											<th class="sort border-top">Balance</th>
+											<th class="sort border-top">Stage Amnt</th>
+											<th class="sort border-top">Interest</th>
+											<th class="sort border-top">Total</th>
+										</tr>
+									</thead>
+									<tbody class="list">
+										
+										@foreach (var detail in Model.CLoanSchedules)
+										{
+											<tr class="">
+												<td class=""> @detail.PaymentNumber</td>
+												<td class=""> @detail.DueDate.ToString("dd/MM/yyyy")</td>
+												<td class="align-right"> @detail.StageName</td>
+												<td class="align-right"> @detail.BalanceBF</td>
+												<td class="align-right"> @detail.StageRecov</td>
+												<td class="align-right"> @detail.Icharge</td>
+												<td class="align-right"> @detail.TotalDeduction</td>
+											</tr>
+										}
+								</tbody>
+								</table>
+								<li class="list-group-item bg-info">
+									<div class="row container">
+										<div class="col-6">
+											<h5 class="text-white">TOTAL </h5>
+										</div>
+										<div class="col-6 text-end">
+											<h5 class="text-white">@Model.CLoan.LoanAmount.ToString("c")</h5>
+										</div>
+									</div>
+								</li>
+							</ul>
+								
+
+							@* Schedule Iteration ends *@
+							<input type="submit" asp-action="Schedule" class="btn btn-danger form-control my-1" value="Schedule Loan" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+

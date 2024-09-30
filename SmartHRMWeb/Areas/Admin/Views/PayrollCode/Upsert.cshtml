@@ -1,0 +1,226 @@
+﻿@model SmartHRM.Models.PayrollCode
+<div class="card shadow-none border border-300 mb-3">
+<form method="post" asp-action="Upsert" >
+    <div class="row">
+        <div class="col-12">
+            <div class="p-3 mt-4" row>
+                <div class="col-12 pb-2">
+                    <h4 class="text-primary">@(Model.Id != 0 ? "Update" : "Create")  Payroll Code</h4>
+                    <hr />
+                </div>
+                <div asp-validation-summary="All"></div>
+                <input asp-for="Id" hidden />
+                <div class="mb-3 form-group">
+                    <label asp-for="Code"></label>
+                    <input asp-for="Code" class="form-control" />
+                    <span asp-validation-for="Code" class="text-danger"></span>
+                </div>
+                <div class="mb-3 form-group">
+                    <label asp-for="PayName"></label>
+                    <input asp-for="PayName" class="form-control" />
+                    <span asp-validation-for="PayName" class="text-danger"></span>
+                </div>
+                
+            
+               
+                    <div class="card shadow-none border border-300 my-4" data-component-card="data-component-card">
+                        <div class="card-header p-4 border-bottom border-300 bg-soft">
+                            <div class="row g-3 justify-content-between align-items-center">
+                                <div class="col-12 col-md">
+                                    <h4 class="text-900 mb-0" data-anchor="data-anchor">Process Type</h4>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="card-body p-0">
+                            
+                            <div class="p-4 code-to-copy">
+                                <div class="form-check">
+                                    <input class="form-check-input" asp-for="Amount"  type="checkbox">
+                                    <label class="form-check-label" asp-for="Amount"></label>                                   
+                                </div>
+                               
+                                <div class="form-check">
+                                    <input class="form-check-input" asp-for="Statement" type="checkbox">
+                                    <label class="form-check-label" asp-for="Statement"> </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" asp-for="Loan" type="checkbox">
+                                    <label class="form-check-label" asp-for="Loan"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card shadow-none border border-300 my-4" data-component-card="data-component-card">
+                        <div class="card-header p-4 border-bottom border-300 bg-soft">
+                            <div class="row g-3 justify-content-between align-items-center">
+                                <div class="col-12 col-md">
+                                    <h4 class="text-900 mb-0" data-anchor="data-anchor">Payroll Type</h4>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row g-7 g-lg-11 mb-7">
+
+                            <div class="col-12 col-sm-6 col-xxl-3">
+                                <div class="card-body p-0">
+                                    <div class="p-4">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" asp-for="Payment" type="checkbox">
+                                            <label class="form-check-label" asp-for="Payment">
+                                            </label>
+                                            <span asp-validation-for="Payment" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" asp-for="Deduction" type="checkbox">
+                                            <label class="form-check-label" asp-for="Deduction">
+                                            </label>
+                                            <span asp-validation-for="Deduction" class="text-danger"></span>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="p-4">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" asp-for="Fixed" type="checkbox">
+                                            <label class="form-check-label" asp-for="Fixed"></label>
+                                            <span asp-validation-for="Fixed" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" asp-for="Variable" type="checkbox">
+                                            <label class="form-check-label" asp-for="Variable"></label>
+                                            <span asp-validation-for="Variable" class="text-danger"></span>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="p-4">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" asp-for="Taxable" type="checkbox">
+                                            <label class="form-check-label" asp-for="Taxable"></label>
+                                            <span asp-validation-for="Taxable" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" asp-for="NonTaxable" type="checkbox">
+                                            <label class="form-check-label" asp-for="NonTaxable"></label>
+                                            <span asp-validation-for="NonTaxable" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-xxl-3">
+                                <div class="card-body p-0">
+                                    <div class="p-4">
+
+                                    <div class="input-group input-group-sm mb-3">
+                                        <span class="input-group-text" id="inputGroup-sizing-sm">Limit</span>
+                                        <input class="form-control" asp-for="Limit" type="text" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                        <span asp-validation-for="Limit" class="text-danger"></span>
+
+                                    </div>
+                                    <div class="input-group input-group-sm mb-3">
+                                        <span class="input-group-text" id="inputGroup-sizing-sm">Rounding</span>
+                                        <input class="form-control" asp-for="RoundIn" type="text" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                        <span asp-validation-for="RoundIn" class="text-danger"></span>
+
+                                    </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                  
+
+                    <div class="card shadow-none border border-300 my-4" data-component-card="data-component-card">
+                        <div class="card-header p-4 border-bottom border-300 bg-soft">
+                            <div class="row g-3 justify-content-between align-items-center">
+                                <div class="col-12 col-md">
+                                    <h4 class="text-900 mb-0" data-anchor="data-anchor">Other Options</h4>
+                                </div>
+
+                            </div>
+                        </div>
+                                            
+
+                        <div class="card-body p-0">
+                            <div class="p-4">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" asp-for="Insurance" type="checkbox">
+                                    <label class="form-check-label" asp-for="Insurance">
+                                    </label>
+                                    <span asp-validation-for="Insurance" class="text-danger"></span>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" asp-for="NonCashBenefit" type="checkbox">
+                                    <label class="form-check-label" asp-for="NonCashBenefit">
+                                    </label>
+                                    <span asp-validation-for="NonCashBenefit" class="text-danger"></span>
+
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" asp-for="Recurring" type="checkbox">
+                                    <label class="form-check-label" asp-for="Recurring">
+                                    </label>
+                                    <span asp-validation-for="Recurring" class="text-danger"></span>
+
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" asp-for="Nssf_inc" type="checkbox">
+                                    <label class="form-check-label" asp-for="Nssf_inc">
+                                    </label>
+                                    <span asp-validation-for="Nssf_inc" class="text-danger"></span>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" asp-for="Nhif_inc" type="checkbox">
+                                    <label class="form-check-label" asp-for="Nhif_inc">
+                                    </label>
+                                    <span asp-validation-for="Nhif_inc" class="text-danger"></span>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                  
+
+                <div class="col-12">
+                    @if (Model.Id != 0)
+                    {
+                            <button type="submit" class="btn btn-primary me-1 mb-1">Update</button>
+                    }
+                    else
+                    {
+                            <button type="submit" onclick="return ValidateInput()" class="btn btn-primary me-1 mb-1" >Create</button>
+                    }
+
+                        <a asp-controller="PayrollCode" asp-action="Index" class="btn btn-secondary me-1 mb-1">
+                        Back to List
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+       
+    </div>   
+
+</form>
+</div>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+    
+}

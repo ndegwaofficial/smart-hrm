@@ -1,0 +1,465 @@
+﻿@model SmartHRM.Models.GeneralParameter
+@using Microsoft.Extensions.Options
+@*@inject IOptions<SmartHRM.Utility.StripeSettings> Stripe*@
+
+
+<form method="post" asp-controller="GeneralParameter" asp-action="Upsert">	
+	<br />
+	<div class="container">
+		<div class="card">
+			<div class="card-header bg-dark text-light ml-0">
+				<div class=" row container">
+					<div class="col-6">
+						<i class="fa fa-sho"></i> &nbsp;
+						General Parameters
+					</div>
+					<div class="col-6 text-end">
+						<a asp-action="Index" class="btn btn-outline-info btn-sm">Back to List</a>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="container rounded p-2">
+					<div class="border p-3 mt-4 row">
+						@* Pension Starts *@
+						<div class="col-12 col-lg-4 pb-4">							
+
+							@* Employment details *@
+							<div class="border p-3 mt-4 row">
+								<div class="col-12 border-1 col-lg-12 pb-4">
+									<div class="row">
+										<h4 class="d-flex justify-content-between align-items-center mb-3">
+											<span class="text-info">Pension</span>
+										</h4>
+									</div>
+									<input asp-for="Id" hidden />
+
+									<div class="row my-1">
+										<div class="col-7">
+											<label asp-for="PensionEmployerPercent"></label>
+										</div>
+										<div class="col-5">
+											<input asp-for="PensionEmployerPercent" type="text" class="form-control  data-options='{" disableMobile":true}' />
+											<span asp-validation-for="PensionEmployerPercent" class="text-danger"></span>
+										</div>
+									</div>
+									<div class="row my-1">
+										<div class="col-7">
+											<label asp-for="PensionEmployeePercent"></label>
+										</div>
+										<div class="col-5">
+											<input asp-for="PensionEmployeePercent" class="form-control" />
+											<span asp-validation-for="PensionEmployeePercent" class="text-danger"></span>
+										</div>
+									</div>
+									<div class="row my-1">
+										<div class="col-7">
+											<label asp-for="MaximumPension"></label>
+										</div>
+										<div class="col-5">
+											<input asp-for="MaximumPension" class="form-control" />
+											<span asp-validation-for="MaximumPension" class="text-danger"></span>
+										</div>
+									</div>
+									<div class="row my-1">
+										<div class="col-7">
+											<label asp-for="BasePensionOnTaxablePay"></label>
+										</div>
+										<div class="col-5">
+											@Html.CheckBoxFor(model => model.BasePensionOnTaxablePay, htmlAttributes: new { id = "chkoptBPTP", onchange = "ModifyCheckBoxes('chkoptBPTP')", @checked = false, @class = "big-checkbox" })
+											@Html.ValidationMessageFor(model => model.BasePensionOnTaxablePay, "", new { @class = "text-danger" })
+										</div>
+									</div>
+
+								</div>
+
+
+							</div>
+
+						</div>
+						@* Pension Ends *@
+
+						@* NSSF Starts *@
+						<div class="col-12 col-lg-4 pb-4">
+						
+							<div class="border p-3 mt-4 row">
+								<div class="col-12 border-1 col-lg-12 pb-4">
+									<div class="row">
+										<h4 class="d-flex justify-content-between align-items-center mb-3">
+											<span class="text-info">N.S.S.F</span>
+										</h4>
+									</div>
+
+									<div class="row my-1">
+										<div class="col-7">
+											<label asp-for="NSSF_maximum"></label>
+										</div>
+										<div class="col-5">
+											<input asp-for="NSSF_maximum" type="text" class="form-control  data-options='{" disableMobile":true}' />
+											<span asp-validation-for="NSSF_maximum" class="text-danger"></span>
+										</div>
+									</div>
+									<div class="row my-1">
+										<div class="col-7">
+											<label asp-for="NSSFEmployee"></label>
+										</div>
+										<div class="col-5">
+											<input asp-for="NSSFEmployee" class="form-control" />
+											<span asp-validation-for="NSSFEmployee" class="text-danger"></span>
+										</div>
+									</div>
+									<div class="row my-1">
+										<div class="col-7">
+											<label asp-for="NSSFEmployer"></label>
+										</div>
+										<div class="col-5">
+											<input asp-for="NSSFEmployer" class="form-control" />
+											<span asp-validation-for="NSSFEmployer" class="text-danger"></span>
+										</div>
+									</div>
+									<div class="row my-1">
+										<div class="col-7">
+											<label asp-for="newrules"></label>
+										</div>
+										<div class="col-5">
+											@Html.CheckBoxFor(model => model.newrules, htmlAttributes: new { id = "chkoptnewrule", onchange = "ModifyCheckBoxes('chkoptnewrule')", @checked = false, @class = "big-checkbox" })
+											<span asp-validation-for="newrules" class="text-danger"></span>
+										</div>
+									</div>
+
+								</div>
+
+
+							</div>
+
+						</div>
+
+						@* NSSF Ends *@
+
+						@* Insurance Starts *@
+						<div class="col-12 col-lg-4 pb-4">
+
+							<div class="border p-3 mt-4 row">
+								<div class="col-12 border-1 col-lg-12 pb-4">
+									<div class="row">
+										<h4 class="d-flex justify-content-between align-items-center mb-3">
+											<span class="text-info">Insurance</span>
+										</h4>
+									</div>
+
+									<div class="row my-1">
+										<div class="col-7">
+											<label asp-for="InsReliefPercent"></label>
+										</div>
+										<div class="col-5">
+											<input asp-for="InsReliefPercent" type="text" class="form-control  data-options='{" disableMobile":true}' />
+											<span asp-validation-for="InsReliefPercent" class="text-danger"></span>
+										</div>
+									</div>
+									<div class="row my-1">
+										<div class="col-7">
+											<label asp-for="InsMaximumMonthly"></label>
+										</div>
+										<div class="col-5">
+											<input asp-for="InsMaximumMonthly" class="form-control" />
+											<span asp-validation-for="InsMaximumMonthly" class="text-danger"></span>
+										</div>
+									</div>
+									<div class="row my-1">
+										<div class="col-7">
+											<label asp-for="InsurancePolicyDate"></label>
+										</div>
+										<div class="col-5">
+											<input asp-for="InsurancePolicyDate" class="form-control" />
+											<span asp-validation-for="InsurancePolicyDate" class="text-danger"></span>
+										</div>
+									</div>
+									<div class="row my-1">
+										<div class="col-7">
+											
+										</div>
+										<div class="col-5">
+											
+										</div>
+									</div>
+
+								</div>
+
+
+							</div>
+
+						</div>
+
+						@* Insurance Ends *@
+
+						@* Employee Code Starts *@
+
+						<div class="col-12 col-lg-4 pb-4">
+
+							<div class="border p-3 mt-4 row">
+								<div class="col-12 border-1 col-lg-12 pb-4">
+									<div class="row">
+										<h4 class="d-flex justify-content-between align-items-center mb-3">
+											<span class="text-info">Employee Code</span>
+										</h4>
+									</div>
+
+									<div class="row my-1">
+										<div class="col-7">
+											<label asp-for="EmpCodeSecOneLength"></label>
+										</div>
+										<div class="col-5">
+											<input asp-for="EmpCodeSecOneLength" type="text" class="form-control  data-options='{" disableMobile":true}' />
+											<span asp-validation-for="EmpCodeSecOneLength" class="text-danger"></span>
+										</div>
+									</div>
+									<div class="row my-1">
+										<div class="col-7">
+											<label asp-for="EmpCodeSecTwoLength"></label>
+										</div>
+										<div class="col-5">
+											<input asp-for="EmpCodeSecTwoLength" class="form-control" />
+											<span asp-validation-for="EmpCodeSecTwoLength" class="text-danger"></span>
+										</div>
+									</div>
+									<div class="row my-1">
+										<div class="col-7">
+											<label asp-for="EmpCodeSecOneString"></label>
+										</div>
+										<div class="col-5">
+											<input asp-for="EmpCodeSecOneString" class="form-control" />
+											<span asp-validation-for="EmpCodeSecOneString" class="text-danger"></span>
+										</div>
+
+									</div>
+									<div class="row my-1">
+										<div class="col-7">
+											<label asp-for="EmpCodeSeparator"></label>
+										</div>
+										<div class="col-5">
+											<input asp-for="EmpCodeSeparator" class="form-control" />
+											<span asp-validation-for="EmpCodeSeparator" class="text-danger"></span>
+										</div>
+									</div>
+                                    <div class="row my-1">
+                                        <div class="col-7">
+											<label asp-for="empcodeMainString"></label>
+                                        </div>
+                                        <div class="col-5">
+											<input asp-for="empcodeMainString" class="form-control" />
+											<span asp-validation-for="empcodeMainString" class="text-danger"></span>
+                                        </div>
+                                    </div>
+									
+
+
+								</div>
+
+
+							</div>
+
+						</div>
+
+						@* Employee Code Ends *@
+
+						@* Factory Specifics *@
+						<div class="col-12 col-lg-4 pb-4">
+
+							<div class="border p-3 mt-4 row">
+								<div class="col-12 border-1 col-lg-12 pb-4">
+									<div class="row">
+										<h4 class="d-flex justify-content-between align-items-center mb-3">
+											<span class="text-info">Factory Specific</span>
+										</h4>
+									</div>
+
+									<div class="row my-1">
+										<div class="col-7">
+											<label asp-for="KUSPAW"></label>
+										</div>
+										<div class="col-5">
+											<input asp-for="KUSPAW" type="text" class="form-control  data-options='{" disableMobile":true}' />
+											<span asp-validation-for="KUSPAW" class="text-danger"></span>
+										</div>
+									</div>
+									<div class="row my-1">
+										<div class="col-7">
+											<label asp-for="cotuPayment"></label>
+										</div>
+										<div class="col-5">
+											<input asp-for="cotuPayment" class="form-control" />
+											<span asp-validation-for="cotuPayment" class="text-danger"></span>
+										</div>
+									</div>
+									<div class="row my-1">
+										<div class="col-7">
+											<label asp-for="driverSavings"></label>
+										</div>
+										<div class="col-5">
+											<input asp-for="driverSavings" class="form-control" />
+											<span asp-validation-for="driverSavings" class="text-danger"></span>
+										</div>
+									</div>
+
+									<div class="row my-1">
+										<div class="col-7">
+											<label asp-for="loaderSaving"></label>
+										</div>
+										<div class="col-5">
+											<input asp-for="loaderSaving" class="form-control" />
+											<span asp-validation-for="loaderSaving" class="text-danger"></span>
+										</div>
+									</div>
+
+									<div class="row my-1">
+										<div class="col-7">
+											<label asp-for="nightShiftRate"></label>
+										</div>
+										<div class="col-5">
+											<input asp-for="nightShiftRate" class="form-control" />
+											<span asp-validation-for="nightShiftRate" class="text-danger"></span>
+										</div>
+									</div>
+
+									<div class="row my-1">
+										<div class="col-7">
+											<label asp-for="holidayTonnage"></label>
+										</div>
+										<div class="col-5">
+											<input asp-for="holidayTonnage" class="form-control" />
+											<span asp-validation-for="holidayTonnage" class="text-danger"></span>
+										</div>
+									</div>
+									
+								</div>
+
+
+							</div>
+
+						</div>
+
+						@* Factory Specifics *@
+
+						@* Other Parameters *@
+						<div class="col-12 col-lg-4 pb-4">
+
+							<div class="border p-3 mt-4 row">
+								<div class="col-12 border-1 col-lg-12 pb-4">
+									<div class="row">
+										<h4 class="d-flex justify-content-between align-items-center mb-3">
+											<span class="text-info">Other Parameters</span>
+										</h4>
+									</div>
+
+									<div class="row my-1">
+										<div class="col-7">
+											<label asp-for="DecimalRounding"></label>
+										</div>
+										<div class="col-5">
+											<input asp-for="DecimalRounding" type="text" class="form-control  data-options='{" disableMobile":true}' />
+											<span asp-validation-for="DecimalRounding" class="text-danger"></span>
+										</div>
+									</div>
+
+									<div class="row my-1">
+										<div class="col-7">
+											<label asp-for="HousingPer"></label>
+										</div>
+										<div class="col-5">
+											<input asp-for="HousingPer" class="form-control" />
+											<span asp-validation-for="HousingPer" class="text-danger"></span>
+										</div>
+									</div>
+
+									<div class="row my-1">
+										<div class="col-7">
+											<label asp-for="HousingLevy"></label>
+										</div>
+										<div class="col-5">
+											<input asp-for="HousingLevy" class="form-control" />
+											<span asp-validation-for="HousingLevy" class="text-danger"></span>
+										</div>
+									</div>
+									
+									<div class="row my-1">
+										<div class="col-7">
+											<label asp-for="HousingLevyReliefPer"></label>
+										</div>
+										<div class="col-5">
+											<input asp-for="HousingLevyReliefPer" class="form-control" />
+											<span asp-validation-for="HousingLevyReliefPer" class="text-danger"></span>
+										</div>
+									</div>
+
+                                    <div class="row my-1">
+                                        <div class="col-7">
+											<label asp-for="HousingLevyReliefMax"></label>
+                                        </div>
+                                        <div class="col-5">
+											<input asp-for="HousingLevyReliefMax" class="form-control" />
+											<span asp-validation-for="HousingLevyReliefMax" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+									<div class="row my-1">
+										<div class="col-7">
+											<label asp-for="CalculateHousing"></label>
+										</div>
+										<div class="col-5">
+											@Html.CheckBoxFor(model => model.CalculateHousing, htmlAttributes: new { id = "chkoptCalcHouse", onchange = "ModifyCheckBoxes('chkoptCalcHouse')", @checked = false, @class = "big-checkbox" })
+											@Html.ValidationMessageFor(model => model.CalculateHousing, "", new { @class = "text-danger" })
+											
+										</div>
+									</div>
+									<br />
+									
+
+                                    <div class="row my-1">
+                                        <div class="col-7">
+											<label asp-for="workingdays"></label>
+                                        </div>
+                                        <div class="col-5">
+											<input asp-for="workingdays" class="form-control" />
+											<span asp-validation-for="workingdays" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+									<div class="row my-1">
+										<div class="col-7">
+											<label asp-for="PersonalRelief"></label>
+										</div>
+										<div class="col-5">
+											<input asp-for="PersonalRelief" class="form-control" />
+											<span asp-validation-for="PersonalRelief" class="text-danger"></span>
+										</div>
+									</div>
+
+								</div>
+
+
+							</div>
+
+						</div>
+
+						@* Other Parameters *@
+
+					</div>
+					
+
+				</div>
+				<div class="card-footer">
+					<div class="row">
+
+						<div class="col-12 col-md-4">
+							<button type="submit" value="Place Order" class="btn btn-primary form-control">Update Parameters</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+</form>
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

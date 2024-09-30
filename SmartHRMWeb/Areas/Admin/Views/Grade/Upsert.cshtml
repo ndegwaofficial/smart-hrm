@@ -1,0 +1,204 @@
+﻿@model SmartHRM.Models.EmployeeGrade
+
+<div class="container">
+    <form method="post" asp-action="Upsert">
+    <div class="card">
+        <div class="card-header bg-dark text-light ml-0">
+            <div class=" row container">
+                <div class="col-6">
+                    <i class="fa fa-sho"></i> &nbsp;
+                    @(Model.Id != 0 ? "Update" : "Create") Grade
+                </div>
+                <div class="col-6 text-end">
+                    <a asp-action="Index" class="btn btn-outline-info btn-sm">Back to List</a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="container">
+                
+                    <div class="row col-12 offset-lg-1">
+                        <div asp-validation-summary="All"></div>
+                        <input asp-for="Id" hidden />
+
+                        <div class="row my-1">
+                            <div class="col-3">
+                                <label asp-for="GradeName"></label>
+                            </div>
+                            <div class="col-5">                                
+                                <input asp-for="GradeName" class="form-control" />
+                                <span asp-validation-for="GradeName" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row my-1">
+                            <div class="col-3">
+                                <label asp-for="LowerAmount"></label>
+                            </div>
+                            <div class="col-5">                               
+                                <input asp-for="LowerAmount" class="form-control" />
+                                <span asp-validation-for="LowerAmount" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row my-1">
+                            <div class="col-3">
+                                <label asp-for="UpperAmount"></label>
+                            </div>
+                            <div class="col-5">                               
+                                <input asp-for="UpperAmount" class="form-control" />
+                                <span asp-validation-for="UpperAmount" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row my-1">
+                            <div class="col-3">
+                                <label asp-for="DailyRate"></label>
+                            </div>
+                            <div class="col-5">                               
+                                <input asp-for="DailyRate" class="form-control" />
+                                <span asp-validation-for="DailyRate" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row my-1">
+                            <div class="col-3">
+                                <label asp-for="HourlyRate"></label>
+                            </div>
+                            <div class="col-5">                               
+                                <input asp-for="HourlyRate" class="form-control" />
+                                <span asp-validation-for="HourlyRate" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row my-1">
+                            <div class="col-3">
+                                <label asp-for="NightOutRate"></label>
+                            </div>
+                            <div class="col-5">                               
+                                <input asp-for="NightOutRate" class="form-control" />
+                                <span asp-validation-for="NightOutRate" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row my-1">
+                            <div class="col-3">
+                                <label asp-for="PerDiemRate"></label>
+                            </div>
+                            <div class="col-5">                               
+                                <input asp-for="PerDiemRate" class="form-control" />
+                                <span asp-validation-for="PerDiemRate" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row my-1">
+                            <div class="col-3">
+                                <label asp-for="TonnageRate"></label>
+                            </div>
+                            <div class="col-5">                               
+                                <input asp-for="TonnageRate" class="form-control" />
+                                <span asp-validation-for="TonnageRate" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row my-1">
+                            <div class="col-3">
+                               
+                            </div>
+                            <div class="col-5">
+                                <div class="">
+                                    <fieldset class="form-group">
+                                        <legend class="mt-4"></legend>
+                                        <div class="form-check">
+                                            <input class="form-check-input" asp-for="opthourly" type="checkbox">
+                                            <label class="form-check-label" asp-for="opthourly">
+                                            </label>
+                                            <span asp-validation-for="opthourly" class="text-danger"></span>
+
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" asp-for="optdaily" type="checkbox">
+                                            <label class="form-check-label" asp-for="optdaily">
+                                            </label>
+                                            <span asp-validation-for="optdaily" class="text-danger"></span>
+                                        </div>
+
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" asp-for="opttonnage" type="checkbox">
+                                            <label class="form-check-label" asp-for="opttonnage">
+                                            </label>
+                                            <span asp-validation-for="opttonnage" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" asp-for="multipleprocess" type="checkbox">
+                                            <label class="form-check-label" asp-for="multipleprocess">
+                                            </label>
+                                            <span asp-validation-for="multipleprocess" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" asp-for="permanentemp" type="checkbox">
+                                            <label class="form-check-label" asp-for="permanentemp">
+                                            </label>
+                                            <span asp-validation-for="permanentemp" class="text-danger"></span>
+                                        </div>
+
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                        
+
+                        <div class="row my-1">
+                            <div class="col-3">
+                                <label asp-for="maxtonne"></label>
+                            </div>
+                            <div class="col-5">                               
+                                <input asp-for="maxtonne" class="form-control" />
+                                <span asp-validation-for="maxtonne" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row my-1">
+                            <div class="col-3">
+                                <label asp-for="bonusrate"></label>
+                            </div>
+                            <div class="col-5">                               
+                                <input asp-for="bonusrate" class="form-control" />
+                                <span asp-validation-for="bonusrate" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row my-1">
+                            <div class="col-3">
+                                <label asp-for="abovetonne"></label>
+                            </div>
+                            <div class="col-5">                                
+                                <input asp-for="abovetonne" class="form-control" />
+                                <span asp-validation-for="abovetonne" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row my-1">
+                            <div class="col-3">
+                                <label asp-for="payfortonnes"></label>
+                            </div>
+                            <div class="col-5">                                
+                                <input asp-for="payfortonnes" class="form-control" />
+                                <span asp-validation-for="payfortonnes" class="text-danger"></span>
+                            </div>
+                        </div>
+                      
+
+                    </div>
+              
+            </div>
+            <div class="card-footer">
+                <div class="row">
+
+                    <div class="col-12 col-md-4">
+                        <button type="submit" class="btn btn-primary form-control align-right">Save Grade</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+</div>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+    
+}

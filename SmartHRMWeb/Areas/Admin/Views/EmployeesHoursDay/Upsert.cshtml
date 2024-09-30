@@ -1,0 +1,84 @@
+﻿@model SmartHRM.Models.ViewModels.EmployeesHoursDayVM
+
+<div class="card shadow-none border border-300 mb-3">
+    <form method="post" asp-controller="EmployeesHoursDay" asp-action="Upsert">
+     
+
+        <div class="row">
+            <div class="col-12">
+                <div class=" p-3 mt-4" row>
+                    <div class="col-12 pb-2">
+                        <h2 class="text-primary">@(Model.EmployeesHoursDay.Id != 0 ? "Update" : "Create")  Hours/Day</h2>
+                        <hr />
+                    </div>
+                    <div asp-validation-summary="All"></div>
+                    <input asp-for="EmployeesHoursDay.Id" hidden />
+
+
+                    <div class="row my-1">
+                        <div class="col-3">
+                            <label asp-for="EmployeesHoursDay.EmployeeId"></label>
+                        </div>
+                        <div class="col-9">
+                            <select asp-for="EmployeesHoursDay.EmployeeId" data-choices="data-choices" asp-items="@Model.EmployeeList" class="form-select">
+                                <option disabled selected>--Select Employee--</option>
+                            </select>
+                            <span asp-validation-for="EmployeesHoursDay.EmployeeId" class="text-danger"></span>
+                        </div>
+                        
+                    </div>
+
+                    <div class="row my-1">
+                        <div class="col-3">
+                            <label asp-for="EmployeesHoursDay.Hoursdays"></label>
+                        </div>
+                        <div class="col-9">                         
+                            <input asp-for="EmployeesHoursDay.Hoursdays" class="form-control" />
+                            <span asp-validation-for="EmployeesHoursDay.Hoursdays" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row my-1">
+                        <div class="col-3">
+                            <label asp-for="EmployeesHoursDay.Amount"></label>
+                        </div>
+                        <div class="col-9">
+                            <input asp-for="EmployeesHoursDay.Amount" class="form-control" />
+                            <span asp-validation-for="EmployeesHoursDay.Amount" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row my-1">
+                       
+                    </div>
+
+                    <div class="col-12">
+                        @if (Model.EmployeesHoursDay.Id != 0)
+                        {
+                            <button type="submit" class="btn btn-primary me-1 mb-1">Update</button>
+                        }
+                        else
+                        {
+                            <button type="submit" onclick="return ValidateInput()" class="btn btn-primary me-1 mb-1">Create</button>
+                        }
+
+                        <a asp-controller="EmployeesHoursDay" asp-action="Index" class="btn btn-secondary me-1 mb-1">
+                            Back to List
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </form>
+</div>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+
+}

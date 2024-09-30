@@ -1,0 +1,438 @@
+﻿
+<nav class="navbar navbar-top fixed-top navbar-expand-lg" id="navbarTop" style="display:none;">
+    <div class="navbar-logo">
+
+        <button class="btn navbar-toggler navbar-toggler-humburger-icon hover-bg-transparent" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTopCollapse" aria-controls="navbarTopCollapse" aria-expanded="false" aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
+        <a class="navbar-brand me-1 me-sm-3" asp-area="General" asp-controller="Home" asp-action="Index">
+            <div class="d-flex align-items-center">
+                <div class="d-flex align-items-center">
+                    <img src="/public/assets/img/icons/logo.png" alt="phoenix" width="27" />
+                    <p class="logo-text ms-2 d-none d-sm-block">SmartHRM</p>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="collapse navbar-collapse navbar-top-collapse order-1 order-lg-0 justify-content-center" id="navbarTopCollapse">
+        <ul class="navbar-nav navbar-nav-top" data-dropdown-on-hover="data-dropdown-on-hover">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle lh-1" href="#!" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false"><span class="uil fs-0 me-2 uil-chart-pie"></span>Home</a>
+                <ul class="dropdown-menu navbar-dropdown-caret">
+                    <li>
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="Company" asp-action="Index">
+                            <div class="dropdown-item-wrapper">
+                                <span class="me-2 uil" data-feather="shopping-cart"></span>Company
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="CompanyBranch" asp-action="Index">
+                            <div class="dropdown-item-wrapper">
+                                <span class="me-2 uil" data-feather="tag"></span>Company Branch
+                            </div>
+                        </a>
+                    </li>
+
+                     <li>
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="Division" asp-action="Index">
+                            <div class="dropdown-item-wrapper">
+                                <span class="me-2 uil" data-feather="message-square"></span>Division
+                            </div>
+                        </a>
+                    </li>
+                     <li>
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="Department" asp-action="Index">
+                            <div class="dropdown-item-wrapper">
+                                <span class="me-2 uil" data-feather="clipboard"></span>Department
+                            </div>
+                        </a>
+                    </li>
+                   
+                    
+                    <li>
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="Section" asp-action="Index">
+                            <div class="dropdown-item-wrapper">
+                                <span class="me-2 uil" data-feather="clipboard"></span>Sections
+                            </div>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle lh-1" href="#!" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false"><span class="uil fs-0 me-2 uil-document-layout-right"></span>Employees</a>
+                <ul class="dropdown-menu navbar-dropdown-caret">
+
+                    <li>
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="Employee" asp-action="Index" >
+                            <div class="dropdown-item-wrapper">
+                                <span class="me-2 uil" data-feather="clipboard"></span>Employees
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="EmployeeTermination" asp-action="Upsert">
+                            <div class="dropdown-item-wrapper">
+                                <span class="me-2 uil" data-feather="clipboard"></span>Termination
+                            </div>
+                        </a>
+                    </li>
+                   
+                    <li>
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="EmployeeReactivation" asp-action="Upsert">
+                            <div class="dropdown-item-wrapper">
+                                <span class="me-2 uil" data-feather="clipboard"></span>Reactivation
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="EmployeeReactivation" asp-action="ApproveReactivation">
+                            <div class="dropdown-item-wrapper">
+                                <span class="me-2 uil" data-feather="clipboard"></span>Reactivation Approval
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+           
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle lh-1" href="#!" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false"><span class="uil fs-0 me-2 uil-cube"></span>Configuration</a>
+                <ul class="dropdown-menu navbar-dropdown-caret">
+                    
+                   
+                     <li>
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="EmployeeCategory" asp-action="Index">
+                            <div class="dropdown-item-wrapper">
+                                <span class="me-2 uil" data-feather="mail"></span>Employee Category
+                            </div>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="ContractType" asp-action="Index">
+                            <div class="dropdown-item-wrapper">
+                                <span class="me-2 uil" data-feather="mail"></span>Contract Type
+                            </div>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="Grade" asp-action="Index">
+                            <div class="dropdown-item-wrapper">
+                                <span class="me-2 uil" data-feather="clock"></span>Grade
+                            </div>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="Currency" asp-action="Index">
+                            <div class="dropdown-item-wrapper">
+                                <span class="me-2 uil" data-feather="tool"></span>Currency
+                            </div>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="TerminantionCategory" asp-action="Index">
+                            <div class="dropdown-item-wrapper">
+                                <span class="me-2 uil" data-feather="mail"></span>Termination Type
+                            </div>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="Bank" asp-action="Index">
+                            <div class="dropdown-item-wrapper">
+                                <span class="me-2 uil" data-feather="monitor"></span>Bank
+                            </div>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="BankBranch" asp-action="Index">
+                            <div class="dropdown-item-wrapper">
+                                <span class="me-2 uil" data-feather="monitor"></span>Bank Branch
+                            </div>
+                        </a>
+                    </li>
+
+                    
+                    <li class="dropdown">
+                        <a class="dropdown-item dropdown-toggle" id="email" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">
+                            <div class="dropdown-item-wrapper"><span class="uil fs-0 uil-angle-right lh-1 dropdown-indicator-icon"></span><span><span class="me-2 uil" data-feather="mail"></span>Statutory Rates</span></div>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" asp-area="Admin" asp-controller="Paye" asp-action="Index">
+                                    <div class="dropdown-item-wrapper">
+                                        <span class="me-2 uil"></span>P.A.Y.E Table
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" asp-area="Admin" asp-controller="Nhif" asp-action="Index">
+                                    <div class="dropdown-item-wrapper">
+                                        <span class="me-2 uil"></span>N.H.I.F Table
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                 <a class="dropdown-item" asp-area="Admin" asp-controller="Nssf" asp-action="Index">
+                                    <div class="dropdown-item-wrapper">
+                                        <span class="me-2 uil"></span>N.S.S.F Table
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="PayrollCode" asp-action="Index">
+                            <div class="dropdown-item-wrapper">
+                                <span class="me-2 uil" data-feather="monitor"></span>Payroll Codes
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="GeneralParameter" asp-action="Index">
+                            <div class="dropdown-item-wrapper">
+                                <span class="me-2 uil" data-feather="monitor"></span>General Parameter
+                            </div>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle lh-1" href="#!" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false"><span class="uil fs-0 me-2 uil-files-landscapes-alt"></span>Operations</a>
+                <ul class="dropdown-menu navbar-dropdown-caret">
+                    
+                    <li>
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="EmployeesHoursDay" asp-action="Index">
+                            <div class="dropdown-item-wrapper">
+                                <span class="me-2 uil" data-feather="clock"></span>Employee Hours/Days
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="OvertimeAbsentTransaction" asp-action="Index">
+                            <div class="dropdown-item-wrapper">
+                                <span class="me-2 uil" data-feather="clipboard"></span>Overtime Posting
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="Transaction" asp-action="View">
+                            <div class="dropdown-item-wrapper">
+                                <span class="me-2 uil" data-feather="tool"></span>Post By Employee
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="AbsentTransaction" asp-action="Index">
+                            <div class="dropdown-item-wrapper">
+                                <span class="me-2 uil" data-feather="bar-chart-2"></span>Absent Days
+                            </div>
+                        </a>
+                    </li>
+                   
+                    <li>
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="Loan" asp-action="Index">
+                            <div class="dropdown-item-wrapper">
+                                <span class="me-2 uil" data-feather="shopping-cart"></span>Loans
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="CLoan" asp-action="Index">
+                            <div class="dropdown-item-wrapper">
+                                <span class="me-2 uil" data-feather="shopping-cart"></span>Casual Loans
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="Transaction" asp-action="StopTransaction">
+                            <div class="dropdown-item-wrapper">
+                                <span class="me-2 uil" data-feather="shopping-cart"></span>Stop Transactions
+                            </div>
+                        </a>
+                    </li>
+
+                    <li class="dropdown">
+                        <a class="dropdown-item dropdown-toggle" id="email" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">
+                            <div class="dropdown-item-wrapper"><span class="uil fs-0 uil-angle-right lh-1 dropdown-indicator-icon"></span><span><span class="me-2 uil" data-feather="mail"></span>Data Dimensions</span></div>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" asp-area="Admin" asp-controller="TimeAttendanceRaw" asp-action="Index">
+                                    <div class="dropdown-item-wrapper">
+                                        <span class="me-2 uil" data-feather="bell"></span>Time & Attendance
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" asp-area="Admin" asp-controller="TonnagePosting" asp-action="Tonnage">
+                                    <div class="dropdown-item-wrapper">
+                                        <span class="me-2 uil"></span>Tonnage Import
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" asp-area="Admin" asp-controller="Nhif" asp-action="Index">
+                                    <div class="dropdown-item-wrapper">
+                                        <span class="me-2 uil"></span>Orphaned Tonnage
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" asp-area="Admin" asp-controller="NightshiftHoursPosting" asp-action="Index">
+                                    <div class="dropdown-item-wrapper">
+                                        <span class="me-2 uil"></span>Night Shift All. Import
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" asp-area="Admin" asp-controller="Nssf" asp-action="Index">
+                                    <div class="dropdown-item-wrapper">
+                                        <span class="me-2 uil"></span>Night Shift Manual Import
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </li>
+
+
+
+            @* Activities Start*@
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle lh-1" href="#!" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false"><span class="uil fs-0 me-2 uil-cube"></span>Activities</a>
+                <ul class="dropdown-menu navbar-dropdown-caret">
+                                       
+                    <li class="dropdown">
+                        <a class="dropdown-item dropdown-toggle" id="email" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">
+                            <div class="dropdown-item-wrapper"><span class="uil fs-0 uil-angle-right lh-1 dropdown-indicator-icon"></span><span><span class="me-2 uil" data-feather="tag"></span>Approvals</span></div>
+                        </a>
+                        <ul class="dropdown-menu navbar-dropdown-caret">
+                            <li>
+                                <a class="dropdown-item" asp-area="Admin" asp-controller="TimeAttendanceRaw" asp-action="Index">
+                                    <div class="dropdown-item-wrapper">
+                                        <span class="me-2 uil" data-feather="clock"></span>Transaction Approval
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" asp-area="Admin" asp-controller="EmployeeTermination" asp-action="ApproveTermination">
+                                    <div class="dropdown-item-wrapper">
+                                        <span class="me-2 uil" data-feather="compass"></span>Termination Approval
+                                    </div>
+                                </a>
+                            </li>
+                            
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a class="dropdown-item dropdown-toggle" id="email" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">
+                            <div class="dropdown-item-wrapper"><span class="uil fs-0 uil-angle-right lh-1 dropdown-indicator-icon"></span><span><span class="me-2 uil" data-feather="tool"></span>Processing</span></div>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" asp-area="General" asp-controller="Home" asp-action="Processperm">
+                                    <div class="dropdown-item-wrapper">
+                                        <span class="me-2 uil" data-feather="clock"></span>Process Permanent Payslip
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" asp-area="General" asp-controller="Home" asp-action="Processcasual">
+                                    <div class="dropdown-item-wrapper">
+                                        <span class="me-2 uil" data-feather="compass"></span>Process Casual Payslip
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a class="dropdown-item dropdown-toggle" id="email" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">
+                            <div class="dropdown-item-wrapper"><span class="uil fs-0 uil-angle-right lh-1 dropdown-indicator-icon"></span><span><span class="me-2 uil" data-feather="clock"></span>Period/Stage Closure</span></div>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" asp-area="General" asp-controller="Home" asp-action="Closestage">
+                                    <div class="dropdown-item-wrapper">
+                                        <span class="me-2 uil" data-feather="clipboard"></span>Close Stage
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" asp-area="General" asp-controller="Home" asp-action="Closeperiod">
+                                    <div class="dropdown-item-wrapper">
+                                        <span class="me-2 uil" data-feather="clipboard"></span>Close Period/Year
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+
+
+            @*Activities Ends*@
+                
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle lh-1" href="#!" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false"><span class="uil fs-0 me-2 uil-document-layout-right"></span>User Management</a>
+                <ul class="dropdown-menu navbar-dropdown-caret">
+
+                    <li>
+                        <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Register">
+                            <div class="dropdown-item-wrapper">
+                                <span class="me-2 uil" data-feather="monitor"></span>Create a User
+                            </div>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="Users" asp-action="Index">
+                            <div class="dropdown-item-wrapper">
+                                <span class="me-2 uil" data-feather="monitor"></span>Users List
+                            </div>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="Roles" asp-action="Index">
+                            <div class="dropdown-item-wrapper">
+                                <span class="me-2 uil" data-feather="clipboard"></span>Roles
+                            </div>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+           
+        </ul>
+    </div>
+    <ul class="navbar-nav navbar-nav-icons flex-row">
+        <li class="nav-item">
+            <div class="theme-control-toggle fa-icon-wait px-2">
+                <input class="form-check-input ms-0 theme-control-toggle-input" type="checkbox" data-theme-control="phoenixTheme" value="dark" id="themeControlToggle" />
+                <label class="mb-0 theme-control-toggle-label theme-control-toggle-light" for="themeControlToggle" data-bs-toggle="tooltip" data-bs-placement="left" title="Switch theme"><span class="icon" data-feather="moon"></span></label>
+                <label class="mb-0 theme-control-toggle-label theme-control-toggle-dark" for="themeControlToggle" data-bs-toggle="tooltip" data-bs-placement="left" title="Switch theme"><span class="icon" data-feather="sun"></span></label>
+            </div>
+        </li>     
+              
+        <partial name="_LoginPartial" />
+        
+    </ul>
+</nav>
+<script>
+    var navbarVertical = document.querySelector('.navbar-vertical');
+    navbarVertical.remove();
+    navbarTop.removeAttribute('style');
+</script>

@@ -1,0 +1,52 @@
+﻿@model SmartHRM.Models.ViewModels.TonnageImportVM
+<form method="post">
+    <div class="card shadow-none border border-300 mb-3  card-default card-table" data-component-card="data-component-card">
+
+        <div class="card-body p-0">
+           
+            <div class="p-4 code-to-copy">
+
+                <h2 class="text-bold text-1100 mb-5">Tonnage Data Import</h2>
+                <div id="tableExample3">
+
+                    <div class="row mb-3 align-center">
+
+                        <div class="row row-cols-lg-5 g-3 align-items-center">
+                            <div class="col-12">
+                               
+                                <input asp-for="FromDate" type="text" class="form-control datetimepicker" data-options='{"disableMobile":true,"dateFormat":"d/m/Y"}' placeholder="From Date" aria-label="From Date" />
+                            </div>
+                            <div class="col-12">
+                                
+                                <div class="input-group">
+
+                                    <input asp-for="ToDate" type="text" class="form-control datetimepicker" data-options='{"disableMobile":true,"dateFormat":"d/m/Y"}' placeholder="From Date" aria-label="From Date" />
+                                </div>
+                            </div>
+
+
+                            <div class="col-12">
+
+                                <button class="btn btn-primary" type="submit">Retrieve</button>
+                            </div>
+                        </div>
+                    </div>
+            
+
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+    </div>
+</form>
+
+@section Scripts{
+    <script src="~/js/tonnagePosting.js"></script>
+}
+
+
+
+

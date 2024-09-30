@@ -1,0 +1,63 @@
+﻿
+<div class="card shadow-none border border-300 mb-3  card-default card-table" data-component-card="data-component-card">
+
+    <div class="card-body p-0">
+        <div class="collapse code-collapse" id="search-example-code">
+            <pre class="scrollbar" style="max-height:420px">
+
+            </pre>
+        </div>
+        <div class="p-4 code-to-copy">
+
+            <h2 class="text-bold text-1100 mb-5">Loans</h2>
+            <div id="tableExample3" data-list=''>
+                <div class="row align-items-center justify-content-between g-3 mb-4">
+                    <div class="col col-auto">
+                        <div class="search-box">
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <div class="d-flex align-items-center">
+                            <button class="btn btn-link text-900 me-4 px-0"><span class="fa-solid fa-file-export fs--1 me-2"></span>Export</button>
+                            <a asp-asp-controller="Employee" asp-action="Upsert"> <button class="btn btn-primary"><span class="fas fa-plus me-2"></span>New Loan</button></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="table-responsive row">
+                        <div class="">
+                            <table class="table table-striped table-sm fs--1 mb-0" id="tblLoanData" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th class="sort border-top ps">Emp Code</th>
+                                        <th class="sort border-top">Emplpyee</th>
+                                        <th class="sort border-top">Item Code</th>
+                                        <th class="sort border-top">Loan Item</th>
+                                        <th class="sort border-top">Start Date</th>
+                                        <th class="sort border-top">End Date</th>
+                                        <th class="sort border-top">Interest Rate</th>
+                                        <th class="sort border-top">No. Periods</th>
+                                        <th class="sort border-top">Loan Amount</th>                                      
+                                        <th class="sort text-end align-middle pe-0 border-top" scope="col">ACTION</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="list">
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script src="~/js/myloans.js"></script>
+}

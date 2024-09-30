@@ -1,0 +1,80 @@
+﻿@model SmartHRM.Models.Nssf
+<div class="card shadow-none border border-300 mb-3">
+<form method="post" asp-action="Upsert" >
+    <div class="row">
+        <div class="col-12">
+            <div class="p-3 mt-4" row>
+                <div class="col-12 pb-2">
+                    <h4 class="text-primary">@(Model.Id != 0 ? "Update" : "Create")  Nssf</h4>
+                    <hr />
+                </div>
+                <div asp-validation-summary="All"></div>
+                <input asp-for="Id" hidden />
+                <div class="mb-3">
+                        <label asp-for="national_avg_earning"></label>
+                        <input asp-for="national_avg_earning" class="form-control" />
+                        <span asp-validation-for="national_avg_earning" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                        <label asp-for="upper_earning_limit_per"></label>
+                        <input asp-for="upper_earning_limit_per" class="form-control" />
+                        <span asp-validation-for="upper_earning_limit_per" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                        <label asp-for="upper_earning_limit_amnt"></label>
+                        <input asp-for="upper_earning_limit_amnt" class="form-control" />
+                        <span asp-validation-for="upper_earning_limit_amnt" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="lower_earning_limit_amnt"></label>
+                    <input asp-for="lower_earning_limit_amnt" class="form-control" />
+                    <span asp-validation-for="lower_earning_limit_amnt" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="employee_percent"></label>
+                    <input asp-for="employee_percent" class="form-control" />
+                    <span asp-validation-for="employee_percent" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="employer_percent"></label>
+                    <input asp-for="employer_percent" class="form-control" />
+                    <span asp-validation-for="employer_percent" class="text-danger"></span>
+                </div>
+
+
+                    <div class="col-12">
+                        @if (Model.Id != 0)
+                        {
+                            <button type="submit" class="btn btn-primary me-1 mb-1">Update</button>
+                        }
+                        else
+                        {
+                            <button type="submit" onclick="return ValidateInput()" class="btn btn-primary me-1 mb-1">Create</button>
+                        }
+
+                        <a asp-controller="Nssf" asp-action="Index" class="btn btn-secondary me-1 mb-1">
+                            Back to List
+                        </a>
+                    </div>
+
+                
+
+            </div>
+
+        </div>
+       
+    </div>   
+
+</form>
+</div>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+   
+}

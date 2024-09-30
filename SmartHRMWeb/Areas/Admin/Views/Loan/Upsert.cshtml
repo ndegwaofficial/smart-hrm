@@ -1,0 +1,328 @@
+﻿
+@model SmartHRM.Models.ViewModels.LoanVM
+
+<div class="card shadow-none border border-300 mb-3">
+    <form method="post" asp-controller="Loan" asp-action="Upsert">
+     
+
+        <div class="row">
+            <div class="col-12">
+                <div class=" p-3 mt-4" row>
+                    <div class="col-12 pb-2">
+                        <h2 class="text-primary">@(Model.Loan.Id != 0 ? "Update" : "Create")  Loan</h2>
+                        <hr />
+                    </div>
+                    <div asp-validation-summary="All"></div>
+                    <input asp-for="Loan.Id" hidden />
+
+
+                    <div class="row my-1">
+                        <div class="col-3">
+                            <label asp-for="Loan.EmployeeId"></label>
+                        </div>
+                        <div class="col-9">
+                            <select asp-for="Loan.EmployeeId" data-choices="data-choices" asp-items="@Model.EmployeesList" class="form-select">
+                                <option disabled selected>--Select Employee--</option>
+                            </select>
+                            <span asp-validation-for="Loan.EmployeeId" class="text-danger"></span>
+                        </div>
+                        
+                    </div>
+
+
+
+                    <div class="row my-1">
+                        <div class="col-3">
+                            <label asp-for="Loan.PayrollCodeId"></label>
+                        </div>
+                        <div class="col-9">
+                            <select asp-for="Loan.PayrollCodeId" data-choices="data-choices" asp-items="@Model.PayrollCodeList" class="form-select">
+                                <option disabled selected>--Select Issuerer--</option>
+                            </select>
+                            <span asp-validation-for="Loan.PayrollCodeId" class="text-danger"></span>
+                        </div>
+
+                    </div>
+
+                    <div class="row my-1">
+                        <div class="col-3">
+                            <label asp-for="Loan.LoanTransDate"></label>
+                        </div>
+                        <div class="col-9">
+                            <input asp-for="Loan.LoanTransDate" type="text" class="form-control datetimepicker" placeholder="dd/mm/yyyy" data-options='{"disableMobile":true,"dateFormat":"d/m/Y"}' />
+                            <span asp-validation-for="Loan.LoanTransDate" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row my-1">
+                        <div class="col-3">
+                            <label asp-for="Loan.LoanDesc"></label>
+                        </div>
+                        <div class="col-9">
+                            <input asp-for="Loan.LoanDesc" type="text" class="form-control" placeholder="Loan Purpose"  />
+                            <span asp-validation-for="Loan.LoanDesc" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="border p-3 mt-4 row">
+                        <div class="col-12 col-lg-6 pb-4">                           
+                            <div class="row my-1">
+                                <div class="col-3">
+                                    <label asp-for="Loan.LoanStartPeriod"></label>
+                                </div>
+                                <div class="col-9">
+                                    <input asp-for="Loan.LoanStartPeriod" type="text" class="form-control datetimepicker" placeholder="Month Year" data-options='{"disableMobile":true,"dateFormat":"M Y"}' />
+                                    <span asp-validation-for="Loan.LoanStartPeriod" class="text-danger"></span>
+                                </div>
+                            </div>   
+                        </div>
+
+                        <div class="col-12 col-lg-5 offset-lg-1">
+                            <div class="row my-1">
+                                <div class="col-3">
+                                    <label asp-for="Loan.LoanEndPeriod"></label>
+                                </div>
+                                <div class="col-9">
+                                    <input asp-for="Loan.LoanEndPeriod" type="text" class="form-control datetimepicker" placeholder="Month Year" data-options='{"disableMobile":true,"dateFormat":"M Y"}' />
+                                    <span asp-validation-for="Loan.LoanEndPeriod" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border p-3 mt-4 row">
+                        <div class="col-12 col-lg-6 pb-4">
+                            <div class="row my-1">                        
+                                <div class="col-1">
+                                    @Html.CheckBoxFor(model => model.Loan.UseMonthlyRecov, htmlAttributes: new { id = "chk2", onchange = "ModifyCheckBoxes('chk2')", @checked = false, @class = "big-checkbox" })
+                                </div>
+                                <div class="col-8">
+                                    <label asp-for="Loan.MonthlyRecoveryAmnt"></label>
+                                    @Html.ValidationMessageFor(model => model.Loan.UseMonthlyRecov, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>                       
+                    </div>
+
+                    <div class="border p-3 mt-4 row">
+                        <div class="col-12 col-lg-3">
+                            <div class="row my-1">
+                                <div class="col-1">
+                                    @Html.CheckBoxFor(model => model.Loan.NoInterest, htmlAttributes: new { id = "chkopts1", onchange = "ModifyCheckBoxes('chkopts1')", @checked = false, @class = "big-checkbox" })
+                                </div>
+                                <div class="col-8">
+                                    <label asp-for="Loan.NoInterest"></label>
+                                    @Html.ValidationMessageFor(model => model.Loan.NoInterest, "", new { @class = "text-danger" })
+                                </div>
+                            </div> 
+                         </div>
+                        <div class="col-12 col-lg-3">
+                            <div class="row my-1">                               
+                                <div class="col-1">
+                                    @Html.CheckBoxFor(model => model.Loan.Reducing, htmlAttributes: new { id = "chkopts2", onchange = "ModifyCheckBoxes('chkopts2')", @checked = false, @class = "big-checkbox" })
+                                </div>
+                                <div class="col-8">
+                                    <label asp-for="Loan.Reducing"></label>
+                                    @Html.ValidationMessageFor(model => model.Loan.Reducing, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-3">
+                            <div class="row my-1">                              
+                                <div class="col-1">
+                                    @Html.CheckBoxFor(model => model.Loan.Fixed, htmlAttributes: new { id = "chkopts3", onchange = "ModifyCheckBoxes('chkopts3')", @checked = false, @class = "big-checkbox" })
+                                </div>
+                                <div class="col-8">
+                                    <label asp-for="Loan.Fixed"></label>
+                                    @Html.ValidationMessageFor(model => model.Loan.Fixed, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-3">
+                            <div class="row my-1">
+                               
+                                <div class="col-5">
+                                    <label class="text-danger" asp-for="Loan.InterestRate"></label>
+                                    @Html.ValidationMessageFor(model => model.Loan.InterestRate, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-4">
+                                    @Html.EditorFor(model => model.Loan.InterestRate,
+                                    new { htmlAttributes = new { @class = "form-control", @autofocus = "autofocus", @required = true } })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @* Loan amount *@
+                    <div class="border p-3 mt-4 row">
+
+                        <div id="tableExample4" data-list="{&quot;valueNames&quot;:[&quot;name&quot;,&quot;email&quot;,&quot;payment&quot;],&quot;page&quot;:5,&quot;pagination&quot;:true,&quot;filter&quot;:{&quot;key&quot;:&quot;payment&quot;}}">
+            
+                            <div class="table-responsive">
+                                <table class="table table-sm fs--1 mb-0">
+                                    <thead>
+                                        <tr class="bg-light">
+                                            <th class="sort border-top ps-3" data-sort="name">Loan Amount</th>
+                                            <th class="sort border-top" data-sort="email">Payable Amount</th>
+                                            <th class="sort border-top" data-sort="email">Monthly Recovery</th>
+                                            <th class="sort border-top" data-sort="email">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="list">
+                                        <tr>
+                                            <td class="align-middle ps-3 name">
+                                                @Html.EditorFor(model => model.Loan.LoanAmount,
+                                                new { htmlAttributes = new { @class = "form-control", @autofocus = "autofocus", @required = true } })
+                                            </td>
+                                            <td class="align-middle ps-3 name">
+                                                @Html.EditorFor(model => model.LoanPayable,
+                                                new { htmlAttributes = new { @class = "form-control", @autofocus = "autofocus", @required = true } })
+                                            </td>
+                                            <td class="align-middle ps-3 name">
+                                                @Html.EditorFor(model => model.Loan.MonthlyRecoveryAmnt,
+                                                new { htmlAttributes = new { @class = "form-control", @autofocus = "autofocus", @required = true } })
+                                            </td>
+                                            <td class="align-middle ps-3 name">
+                                                <button type="button" onclick="return ScheduleLoan()" id="btnschedule" class="btn btn-primary me-1 mb-1">Schedule Loan</button>
+                                            </td>
+                                          
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                           
+                        </div>
+
+                    </div>
+                    @* End Loan amount *@
+                    <div class="col-12">
+                        @if (Model.Loan.Id != 0)
+                        {
+                            <button type="submit" class="btn btn-primary me-1 mb-1">Update</button>
+                        }
+                        else
+                        {
+                            <button type="submit" onclick="return ValidateInput()" class="btn btn-primary me-1 mb-1">Create</button>
+                        }
+
+                        <a asp-controller="Loan" asp-action="Index" class="btn btn-secondary me-1 mb-1">
+                            Back to List
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </form>
+</div>
+<script type="text/javascript">
+    $('.chkBx').change(function () {
+        $(".chkBx").not(this).prop('checked', false);
+    });
+
+
+    function ModifyCheckBoxes(Id) {
+        if (document.getElementById(Id).checked) {
+            if (Id == "chkopts1") {
+                document.getElementById("chkopts2").checked = false;
+                document.getElementById("chkopts3").checked = false;
+            } else if (Id == "chkopts2") {
+                document.getElementById("chkopts1").checked = false;
+                document.getElementById("chkopts3").checked = false;
+
+            }
+            else if (Id == "chkopts3") {
+                document.getElementById("chkopts1").checked = false;
+                document.getElementById("chkopts2").checked = false;
+            }
+        };
+    };
+
+    function ScheduleLoan() {
+        // alert(document.getElementById("chk2").Checked);
+      
+        if (document.getElementById("Loan_LoanAmount").value <= 0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please Key in Loan Amount!',
+                //footer: 'Please upload an Image'
+            });
+            return false;
+        }
+        if (document.getElementById("LoanPayable").value <= 0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please Key in Amount Payable!',
+                //footer: 'Please upload an Image'
+            });
+            return false;
+        }
+        if (document.getElementById("chk2").checked == true) {
+            if (document.getElementById("Loan_MonthlyRecoveryAmnt").value <= 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Please Key in Monthly Recovery Amount!',
+                    //footer: 'Please upload an Image'
+                });
+                return false;
+            }
+        }
+
+        //Call for the loan schedule
+        $.ajax({
+            type: "POST",
+            url: "Loan/Schedule",
+            data: "{}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                if (data.success) {                   
+                    toastr.success(data.message);
+                }
+                else {
+                    toastr.error(data.message);
+                }
+            }
+        });
+        return true;
+    };
+</script>
+
+@section Scripts{
+    @{
+    <partial name="_ValidationScriptsPartial" />
+    }
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+            tinycomments_mode: 'embedded',
+            tinycomments_author: 'Author name',
+            mergetags_list: [
+                { value: 'First.Name', title: 'First Name' },
+                { value: 'Email', title: 'Email' },
+            ]
+        });
+        function ValidateInput() {
+            if (document.getElementById("uploadBox").value == "") {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Please upload an Image!',
+                    //footer: 'Please upload an Image'
+                });
+                return false;
+            }
+            return true;
+        }
+       
+    </script>
+
+}

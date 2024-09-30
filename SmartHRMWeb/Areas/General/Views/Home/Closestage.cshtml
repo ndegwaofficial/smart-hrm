@@ -1,0 +1,99 @@
+﻿@model SmartHRM.Models.ViewModels.RetrieveStageVM
+@using Microsoft.Extensions.Options
+
+
+<div class="container col-8">
+    <form method="post" asp-area="General" asp-controller="Home" asp-action="" >
+        <div class="card ">
+            <div class="card-header bg-dark text-light ml-0">
+                <div class="container">
+                    <div class="col-3">
+                        <i class="fa fa-sho"></i> &nbsp;
+                        Stage Closure
+                    </div>
+                    <input asp-for="Stage" disabled hidden />
+                </div>
+            </div>
+
+
+            <div class="card-body">
+                <div class="container">
+
+                    <div class="row g-4 align-center">
+                        <div class="col-sm-12 col-md-6 col-lg-12">
+                            <div class="card border border-primary">
+                                <div class="card-body">
+                                    <h4 class="card-title">Current Period </h4>
+                                    <p class="card-text">
+
+                                        <div class="row my-1">
+                                            <div class="col-3">
+                                                <label>Period</label>
+                                            </div>
+                                            <div class="col-9">
+                                                <h4>@Model.CurrentPeriod.PeriodWord</h4>
+                                            </div>
+                                        </div>
+                                        <div class="row my-1">
+                                            <div class="col-3">
+                                                <label>Year</label>
+                                            </div>
+                                            <div class="col-9">
+                                                <h4>@Model.CurrentPeriod.Year</h4>
+                                            </div>
+                                        </div>
+                                        <div class="row my-1">
+                                            <div class="col-3">
+                                                <label>Stage</label>
+                                            </div>
+                                            <div class="col-9">
+                                                @if (Model.Stage==4)
+                                                {
+                                                    <h4>Mid Month</h4>
+                                                }else
+                                                {
+                                                    <h4>End Month</h4>
+                                                }
+
+                                            </div>
+                                        </div>
+                                        
+
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                      
+
+                    </div>
+
+                </div>
+
+                <div class="card-footer">
+                    <div class="row col-12 offset-lg-1">
+                        <div class="col-4">
+                            <button type="submit" class="btn btn-outline-info btn-sm">Close Stage</button>
+                        </div>
+                        <div class="col-4 text-end">
+                            <a asp-action="Index" class="btn btn-outline-info btn-sm">Back to Home</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+
+            
+        </div>
+    </form>
+</div> 
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+    <script src="~/js/closestage.js"></script>
+
+}

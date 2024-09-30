@@ -1,0 +1,65 @@
+﻿<form method="post">
+    <div class="card shadow-none border border-300 mb-3  card-default card-table" data-component-card="data-component-card">
+
+        <div class="card-body p-0">
+            <div class="collapse code-collapse" id="search-example-code">
+                <pre class="scrollbar" style="max-height:420px">
+
+            </pre>
+            </div>
+            <div class="p-4 code-to-copy">
+
+                <h2 class="text-bold text-1100 mb-5">Tonnage Data Import</h2>
+                <div id="tableExample3">
+
+                    <div class="">
+                        <div class="table-responsive row">
+                            <div class="">
+                                <table class="table table-striped table-sm fs--1 mb-0" id="tonnagePostingRawtblbody" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th class="sort border-top">Slip No</th>
+                                            <th class="sort border-top ps">Emp Code</th>
+                                            <th class="sort border-top">Date</th>
+                                            <th class="sort border-top">Tons</th>                                           
+                                            <th class="sort border-top" data-sort="state">
+                                                <div class="form-check mb-0 fs-0">
+                                                    <input class="form-check-input sort border-top" id="bulk-select-example" type="checkbox" data-bulk-select='{"body":"bulk-select-body","actions":"bulk-select-actions","replacedElement":"bulk-select-replace-element"}' />Post
+                                                </div>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="list">
+                                    </tbody>
+
+                                </table>
+                                <br />
+                                <ul class="list-group mb-3">
+                                </ul>
+                            </div>
+
+
+                            <div class="col-12 align-right">
+                                <button type="button" id="btnpostdata" onclick="return ValidateInput()" class="btn btn-primary me-1 mb-1">Post</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+    </div>
+</form>
+
+
+@section Scripts{
+    <script src="~/js/tonnagePosting.js"></script>
+}
+
+
+

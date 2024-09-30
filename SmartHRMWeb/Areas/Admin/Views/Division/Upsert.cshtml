@@ -1,0 +1,118 @@
+﻿@model SmartHRM.Models.ViewModels.DivisionVM
+
+<div class="container">
+    <form method="post" asp-action="Upsert">
+	<div class="card">
+		<div class="card-header bg-dark text-light ml-0">
+			<div class=" row container">
+				<div class="col-6">
+					<i class="fa fa-sho"></i> &nbsp;
+                    @(Model.Division.Id != 0 ? "Update" : "Create") Division
+				</div>
+				<div class="col-6 text-end">
+					<a asp-action="Index" class="btn btn-outline-info btn-sm">Back to List</a>
+				</div>
+			</div>
+		</div>
+		<div class="card-body">
+			<div class="container">
+               
+                    <div class="row col-12 offset-lg-1">
+                        <div asp-validation-summary="All"></div>
+                        <input asp-for="Division.Id" hidden />
+                        <div class="row my-1">
+                            <div class="col-3">
+                                <label asp-for="Division.CompanyBranchId"></label>
+                            </div>
+                            <div class="col-7">
+                                <select asp-for="Division.CompanyBranchId" asp-items="@Model.CompanyBranchList" class="form-select">
+                                    <option disabled selected>--Select Company--</option>
+                                </select>
+                                <span asp-validation-for="Division.CompanyBranchId" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row my-1">
+                            <div class="col-3">
+                                <label asp-for="Division.DivisionName"></label>
+                            </div>
+                            <div class="col-5">
+                                <input asp-for="Division.DivisionName" class="form-control" />
+                                <span asp-validation-for="Division.DivisionName" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row my-1">
+                            <div class="col-3">
+                                <label asp-for="Division.Prefix"></label>
+                            </div>
+                            <div class="col-5">
+                                <input asp-for="Division.Prefix" class="form-control" />
+                                <span asp-validation-for="Division.Prefix" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row my-1">
+                            <div class="col-3">
+                                <label asp-for="Division.Bonus"></label>
+                            </div>
+                            <div class="col-5">
+                                <input asp-for="Division.Bonus" class="form-control" />
+                                <span asp-validation-for="Division.Bonus" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row my-1">
+                            <div class="col-3">
+                                <label asp-for="Division.Savings" class="align-right"></label>
+                            </div>
+                            <div class="col-5">
+                                <input asp-for="Division.Savings" class="form-control" />
+                                <span asp-validation-for="Division.Savings" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row my-1">
+                            <div class="col-3">
+                                <label asp-for="Division.BonusNoOfTrips" class="align-right"></label>
+                            </div>
+                            <div class="col-5">
+                                <input asp-for="Division.BonusNoOfTrips" class="form-control" />
+                                <span asp-validation-for="Division.BonusNoOfTrips" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="row my-1">
+                            <div class="col-3">
+                                <label asp-for="Division.BonusTonnageMin" class="align-right"></label>
+                            </div>
+                            <div class="col-5">
+                                <input asp-for="Division.BonusTonnageMin" class="form-control" />
+                                <span asp-validation-for="Division.BonusTonnageMin" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+                    </div>
+               
+			</div>
+			<div class="card-footer">
+				<div class="row">
+
+					<div class="col-12 col-md-4">
+						<button type="submit"  class="btn btn-primary form-control align-right">Save Division</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    </form>
+ </div>
+
+ @section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+   
+}

@@ -1,0 +1,312 @@
+﻿@model SmartHRM.Models.ViewModels.ProcessCasualVM
+@using Microsoft.Extensions.Options
+
+
+<div class="container col-8">
+
+
+	<form method="post" asp-area="General"  asp-controller="Home" asp-action="Processcasual" >
+	@Html.AntiForgeryToken()
+
+        <div class="card ">
+            <div class="card-header bg-dark text-light ml-0">
+                <div class="container">
+                    <div class="col-12">
+                        <i class="fa fa-sho"></i> &nbsp;
+                        Process Payroll.
+
+                        <p class="text-warning">
+                            <i class="fa fa-sho"></i> &nbsp;
+                            Before processing the payroll, ensure you complete all changes to the Employee Profile and Approve all PENDING transactions.
+                        </p>
+
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="container">
+                    <div class="row g-4 align-center">
+                        <div class="col-12 ">
+                            <div class="card border border-primary">
+                                <div class="card-body">
+                                    <h4 class="card-title">Casual Payroll </h4>
+                                    <p class="card-text">
+
+                                        <div class="row my-1">
+                                            <div class="col-3">
+                                                <label>Branches</label>
+                                            </div>
+                                            <div class="col-9">
+												<select asp-for="CompanyBranchId" asp-items="@Model.CompanyBranchList" data-choices="data-choices" class="form-select">
+                                                    <option disabled selected>--Select Branch--</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row my-1">
+                                            <div class="col-3">
+                                                <label>Divisions</label>
+                                            </div>
+                                            <div class="col-9">
+												<select asp-for="DivisionId"  asp-items="@Model.DivisionList" class="form-select">
+                                                    <option disabled selected>--Select Division--</option>
+                                                </select>
+                                            </div>
+                                        </div>
+										
+                                        <div class="row my-1">
+                                            <div class="col-3">
+                                                <label>Departments</label>
+                                            </div>
+                                            <div class="col-9">
+												<select asp-for="DepartmentId"  asp-items="@Model.DepartmentList" class="form-select">
+                                                    <option disabled selected>--Select Department--</option>
+                                                </select>
+                                            </div>
+                                        </div>
+										<div class="row my-1">
+											<div class="col-3">
+												<label>Sections</label>
+											</div>
+											<div class="col-9">
+												<select asp-for="SectionId" asp-items="@Model.SectionList" class="form-select">
+													<option disabled selected>--Select Section--</option>
+												</select>
+											</div>
+										</div>
+										<div class="row my-1">
+											<div class="col-3">
+												<label>Employees</label>
+											</div>
+											<div class="col-9">
+												<select asp-for="EmployeeId" asp-items="@Model.EmployeeList" class="form-select">
+													<option disabled selected>--Select Employees--</option>
+												</select>
+											</div>
+										</div>
+
+										<div class="row my-1">
+											<div class="col-6">
+												<div class="flatpickr-input-container">
+													<div class="form-floating">
+														<input class="form-control datetimepicker" asp-for="DateFrom" type="text" placeholder="Start Date" data-options='{"disableMobile":true}' />
+														<label class="ps-6" for="DateFrom">Start date</label><span class="uil uil-calendar-alt flatpickr-icon text-700"></span>
+													</div>
+												</div>
+											</div>
+											<div class="col-6">
+												<div class="flatpickr-input-container">
+													<div class="form-floating">
+														<input class="form-control datetimepicker" asp-for="DateTo" type="text" placeholder="End Date" data-options='{"disableMobile":true}' />
+														<label class="ps-6" for="DateTo">End Date</label><span class="uil uil-calendar-alt flatpickr-icon text-700"></span>
+													</div>
+												</div>
+											</div>
+										</div>
+                                       
+                                       
+
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    
+
+                    </div>
+
+                </div>
+
+                <div class="card-footer">
+                    <div class="row col-12 offset-lg-1">
+                        
+                        <div class="col-4 text-end">
+                            <a asp-action="Index" class="btn btn-outline-info btn-sm">Cancel</a>
+                        </div>
+						<div class="col-4">
+							<button type="submit">
+								Process Payroll
+							</button>
+							@*  <a onclick="Confirmedperiod('/General/Home/Closeperiods')" class="btn btn-outline-info btn-sm">Close Period</a> *@
+						</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+	@* <script src="~/js/Processperm.js"></script> *@
+	<script type="text/javascript">
+		
+		
+		$('select#CompanyBranchId').change(function () {
+
+			var selectedBranch = $('select#CompanyBranchId').val();
+			var divisionsSelect = $('select#DivisionId');
+			divisionsSelect.empty();
+
+			if (selectedBranch != null && selectedBranch != '') {
+				$.ajax({
+					type: "POST",
+					cache: false,
+					url: "/General/Home/Divisions",
+					beforeSend: function (xhr) {
+						xhr.setRequestHeader("XSRF-TOKEN",
+							$('input:hidden[name="__RequestVerificationToken"]').val());
+					},
+					data: selectedBranch,
+					contentType: "json; charset=utf-8",
+					success: function (divisions) {
+						if (divisions != null && !jQuery.isEmptyObject(divisions)) {
+							divisionsSelect.append($('<option/>', {
+								value: 0,
+								text: "-- SeLect Division --"
+							}));
+							
+							$.each(divisions, function (index, division) 
+							{								
+								divisionsSelect.append($('<option/>', {
+									value: division.id,
+									text: division.divisionName
+								}));
+							});
+						};
+					},
+					failure: function (response) {
+						alert(response);
+					}
+				});
+			}
+		});
+
+		//Monitor any change in the Division and load departments
+
+		$('select#DivisionId').change(function () {
+
+			var selectedDivisionx = $("select#DivisionId").val();
+			var departmentsSelect = $('select#DepartmentId');
+			var employeeSelect = $('select#EmployeeId');
+			departmentsSelect.empty();
+			employeeSelect.empty();
+
+			if (selectedDivisionx != null && selectedDivisionx != '') {
+				$.ajax({
+					type: "POST",
+					url: "/General/Home/Departments",
+					beforeSend: function (xhr) {
+						xhr.setRequestHeader("XSRF-TOKEN",
+							$('input:hidden[name="__RequestVerificationToken"]').val());
+					},
+					data: selectedDivisionx,
+					contentType: "json; charset=utf-8",
+					success: function (departments) {
+						if (departments != null && !jQuery.isEmptyObject(departments)) {
+							departmentsSelect.append($('<option/>', {
+								value: 0,
+								text: "-- SeLect Department --"
+							}));
+							employeeSelect.append($('<option/>', {
+								value: 0,
+								text: "-- SeLect Employee --"
+							}));
+							$.each(departments, function (index, department) 
+							{
+								departmentsSelect.append($('<option/>', {
+									value: department.id,
+									text: department.departmentName
+								}));
+							});
+						};
+					},
+					failure: function (response) {
+						alert(response);
+					}
+				});
+			}
+		});
+
+
+		//Monitor any change in Department and load Sections
+
+		$('#DepartmentId').change(function () {
+
+			var selectedDepartment = $("#DepartmentId").val();
+			var sectionSelect = $('#SectionId');
+			sectionSelect.empty();
+
+			if (selectedDepartment != null && selectedDepartment != '') {
+				$.ajax({
+					type: "POST",
+					url: "/General/Home/Sections",
+					beforeSend: function (xhr) {
+						xhr.setRequestHeader("XSRF-TOKEN",
+							$('input:hidden[name="__RequestVerificationToken"]').val());
+					},
+					data: selectedDepartment,
+					contentType: "json; charset=utf-8",
+					success: function (sections) {
+						if (sections != null && !jQuery.isEmptyObject(sections)) {
+							sectionSelect.append($('<option/>', {
+								value: 0,
+								text: "-- SeLect Section --"
+							}));
+							$.each(sections, function (index, section) {
+								sectionSelect.append($('<option/>', {
+									value: section.id,
+									text: section.sectionName
+								}));
+							});
+						};
+					},
+					failure: function (response) {
+						alert(response);
+					}
+				});
+			}
+		});
+
+		$('#SectionId').change(function () {
+
+			var selectedSection = $("#SectionId").val();
+			var employeeSelect = $('#EmployeeId');
+			employeeSelect.empty();
+
+			if (selectedSection != null && selectedSection != '') {
+				$.ajax({
+					type: "POST",
+					url: "/General/Home/Employees",
+					beforeSend: function (xhr) {
+						xhr.setRequestHeader("XSRF-TOKEN",
+							$('input:hidden[name="__RequestVerificationToken"]').val());
+					},
+					data: selectedSection,
+					contentType: "json; charset=utf-8",
+					success: function (employees) {
+						if (employees != null && !jQuery.isEmptyObject(employees)) {
+							employeeSelect.append($('<option/>', {
+								value: 0,
+								text: "-- SeLect Employee --"
+							}));
+							$.each(employees, function (index, employee) {
+								employeeSelect.append($('<option/>', {
+									value: employee.id,
+									text: employee.fullName
+								}));
+							});
+						};
+					},
+					failure: function (response) {
+						alert(response);
+					}
+				});
+			}
+		});
+		
+	</script>
+
+
+}

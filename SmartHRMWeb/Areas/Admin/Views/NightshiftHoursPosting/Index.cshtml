@@ -1,0 +1,92 @@
+﻿
+    <div class="col-12 col-xl-12 order-1 order-xl-0">
+
+        <div class="card shadow-none border border-300 mb-3" data-component-card="data-component-card">
+        <div class="card-header p-4 border-bottom border-300 bg-soft">
+            <div class="row g-3 justify-content-between align-items-center">
+                <div class="col-12 col-md">
+                    <h4 class="text-900 mb-0" data-anchor="data-anchor">Night Shift Hours Posting</h4>
+                </div>
+            </div>
+        </div>
+            <div class="card-header p-4 border-bottom border-300 bg-soft">
+                <div class="row g-3 justify-content-between align-items-center">
+                <form  class="row g-2">
+                    <div class="col-md-6">
+
+                        <label class="form-label" for="datepicker">Start Date</label>
+
+                        <input class="form-control datetimepicker flatpickr-input" id="fromdatepicker" type="text" placeholder="dd/mm/yyyy"  readonly="readonly">
+
+                    </div>
+                    <div class="col-md-6">
+
+                        <label class="form-label" for="datepicker">End Date</label>
+
+                        <input class="form-control datetimepicker flatpickr-input" id="todatepicker" type="text" placeholder="dd/mm/yyyy"  readonly="readonly">
+
+                    </div>
+
+                    <div class="col-12 bottom-50">
+
+                        <button class="btn btn-warning" type="button" id="btnretrievedata"  data-wizard-next-btn="data-wizard-next-btn">Retrieve Records<span class="fas fa-chevron-right ms-1" data-fa-transform="shrink-3"> </span></button>
+
+                    </div>
+
+                </form>
+                </div>
+            </div>
+            <div class="card-body p-0">
+               
+                <div class="p-4 code-to-copy">
+                   
+                    <div id="tableExample" data-list='{"valueNames":["name","email","age"],"page":5,"pagination":true}'>
+                        <div class="table-responsive mx-n1 px-1">
+
+                        <div class="">
+                            <table class="table table-striped table-sm fs--1 mb-0" id="nightshifthourspostingtblbody" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th class="sort border-top">Trans Id</th>
+                                        <th class="sort border-top">Employee Id</th>
+                                        <th class="sort border-top">Employee</th>
+                                        <th class="sort border-top ps">Date Posted</th>
+                                        <th class="sort border-top">Hours</th>
+
+                                        <th class="sort border-top" data-sort="state">
+                                            <div class="form-check mb-0 fs-0">
+                                                <input class="form-check-input sort border-top" id="checkedAll" type="checkbox" data-bulk-select='{"body":"bulk-select-body","actions":"bulk-select-actions","replacedElement":"bulk-select-replace-element"}' />Posted
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead>
+
+                                <tbody class="list">
+                                </tbody>
+
+                            </table>
+                            <br />
+                            <ul class="list-group mb-3">
+                            </ul>
+                        </div>                        
+
+                        </div>                      
+                        
+                                <div class="flex-1 text-end">
+                                    <p class="mb-2">Click the button to post selected rows</p>
+                                    <button class="btn btn-primary px-6 px-sm-6" id="btnpostdata" onclick="return ValidateInput()" data-wizard-next-btn="data-wizard-next-btn">Post Data<span class="fas fa-chevron-right ms-1" data-fa-transform="shrink-3"> </span></button>
+                                </div>
+
+                        <pre id="selectedRows"></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+
+
+@section Scripts {
+    <script src="~/js/nightshiftHours.js"></script>
+}

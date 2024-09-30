@@ -1,0 +1,108 @@
+﻿@model SmartHRM.Models.ViewModels.OvertimeAbsentTransactionVM
+
+<div class="card shadow-none border border-300 mb-3">
+    <form method="post" asp-controller="OvertimeAbsentTransaction" asp-action="Upsert">   
+        <div class="row">
+            <div class="col-12">
+                <div class=" p-3 mt-4" row>
+                    <div class="col-12 pb-2">
+                        <h2 class="text-primary">@(Model.OvertimeAbsentTransaction.Id != 0 ? "Update" : "Create")  Overtime</h2>
+                        <hr />
+                    </div>
+                    <div asp-validation-summary="All"></div>
+                    <input asp-for="OvertimeAbsentTransaction.Id" hidden />
+                    <div class="row my-1">
+                        <div class="col-3">
+                            <label asp-for="OvertimeAbsentTransaction.EmployeeId"></label>
+                        </div>
+                        <div class="col-9">
+                            <select asp-for="OvertimeAbsentTransaction.EmployeeId"  data-choices="data-choices" asp-items="@Model.EmployeeList" class="form-select">
+                                <option disabled selected>--Select Employee--</option>
+                            </select>
+                            <span asp-validation-for="OvertimeAbsentTransaction.EmployeeId" class="text-danger"></span>
+                        </div>                        
+                    </div>
+                   <div class="row my-1">
+                       <div class="col-3">
+                       </div>
+                       <div class="col-9">                         
+                            <div class="form-check">
+                                @Html.CheckBoxFor(model => model.OvertimeAbsentTransaction.opt15, htmlAttributes: new { id = "chk15", onchange = "ModifyCheckBoxes('chk15')", @checked = true, @class = "big-checkbox" })                                
+                                @Html.ValidationMessageFor(model => model.OvertimeAbsentTransaction.opt15, "", new { @class = "text-danger" })
+                                <label class="form-check-label" for="flexRadioDefault1">Overtime Rate (1.5)</label>
+                            </div>
+                            <div class="form-check">
+                                @Html.CheckBoxFor(model => model.OvertimeAbsentTransaction.opt2, htmlAttributes: new { id = "chk2", onchange = "ModifyCheckBoxes('chk2')", @checked = false, @class = "big-checkbox" })                                
+                                @Html.ValidationMessageFor(model => model.OvertimeAbsentTransaction.opt2, "", new { @class = "text-danger" })
+                                <label class="form-check-label" for="flexRadioDefault2">Overtime Rate (2)</label>
+                            </div>
+                       </div>
+                   </div>
+                    <div class="row my-1">
+                        <div class="col-3">
+                            <label asp-for="OvertimeAbsentTransaction.HoursValue"></label>
+                        </div>
+                        <div class="col-9"> 
+                            @Html.TextBoxFor(model=>model.OvertimeAbsentTransaction.HoursValue,
+                            new { @class = "form-control", style = "width:30%", @autofocus = "autofocus", @placeholder = "0", @required = false } )
+                            
+                            <span asp-validation-for="OvertimeAbsentTransaction.HoursValue" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row my-1">
+                        <div class="col-3">
+                            <label asp-for="OvertimeAbsentTransaction.Amount"></label>
+                        </div>
+                        <div class="col-9">
+                            @Html.TextBoxFor(model=>model.OvertimeAbsentTransaction.Amount,
+                            new { @class = "form-control",@readonly="readonly",style = "width:30%",  @autofocus = "autofocus", @placeholder = "0.00", @required = false } )
+                            <span asp-validation-for="OvertimeAbsentTransaction.Amount"  class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row my-1">
+                       
+                    </div>
+
+                    <div class="col-12">
+                        @if (Model.OvertimeAbsentTransaction.Id != 0)
+                        {
+                            <button type="submit" class="btn btn-primary me-1 mb-1">Update</button>
+                        }
+                        else
+                        {
+                            <button type="submit" onclick="return ValidateInput()" class="btn btn-primary me-1 mb-1">Create</button>
+                        }
+                        <a asp-controller="OvertimeAbsentTransaction" asp-action="Index" class="btn btn-secondary me-1 mb-1">
+                            Back to List
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </form>
+</div>
+<script type="text/javascript">
+    $('.chkBx').change(function () {
+        $(".chkBx").not(this).prop('checked', false);
+    });
+    function ModifyCheckBoxes(Id) {
+        if (document.getElementById(Id).checked) {
+            if (Id == "chk2") {
+                document.getElementById("chk15").checked = false;
+            } else if (Id == "chk15") {
+                document.getElementById("chk2").checked = false;
+            }
+        };
+    };
+</script>
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+
+}

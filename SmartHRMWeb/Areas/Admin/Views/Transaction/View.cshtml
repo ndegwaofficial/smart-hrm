@@ -1,0 +1,126 @@
+﻿@model SmartHRM.Models.ViewModels.TransactionsROVM
+
+
+<form method="get">
+	<input asp-for="SelectedId" hidden/>
+	<br />
+	<div class="container">
+		<div class="card">
+			<div class="card-header bg-dark text-light ml-0">
+				<div class="container row">
+					<div class="col-12 d-none d-md-block col-md-6 pb-1">
+						<i class="fas fa-shopping-cart"></i> &nbsp; Transaction Summary
+					</div>
+					<div class="col-12 col-md-4 offset-md-2 text-right">
+						@* <a asp-action="Index" class="btn btn-outline-info form-control btn-sm">Back to Transaction List</a> *@
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="container rounded p-2">
+					<div class="row">
+						<div class="col-12 col-lg-5 pb-4">
+							<div class="row">
+								<h4 class="d-flex justify-content-between align-items-center mb-3">
+									<span class="text-primary">Choose Employee:</span>
+								</h4>
+							</div>
+							<div class="row my-1">
+								
+								<div class="col-12">
+									<select asp-for="EmpolyeeId" class="retrieveTrans" data-choices="data-choices" asp-items="@Model.EmployeeList" style="min-width:50%;overflow:auto;" class="form-select">
+										<option disabled selected>--Select Employee--</option>
+									</select>									
+								</div>
+							</div>
+						</div>
+						
+						@* Current Transactions Iteration Here *@
+						<div class="col-12 col-lg-5 offset-lg-1">
+							<h4 class="d-flex justify-content-between align-items-center mb-3">
+								<span class="text-primary">Transactions</span>
+							</h4>
+
+							<ul class="list-group mb-3">
+
+								<table class="table table-striped table-sm fs--1 mb-0" id="tblcurrenttrans" width="100%">
+									<thead>
+										<tr>
+											<th class="sort border-top ps">Payroll Code</th>
+											<th class="sort border-top">Type</th>
+											<th class="sort border-top">Year</th>
+											<th class="sort border-top">Month</th>
+											<th class="sort border-top">Amount</th>
+											<th class="sort border-top">Action</th>
+										</tr>
+									</thead>
+									<tbody id="currenttrans ">
+									</tbody>
+								</table>
+								<li class="list-group-item bg-info">
+									<div class="row container">
+										<div class="col-6">
+											<h5 class="text-white">TOTAL </h5>
+										</div>
+										<div class="col-6 text-end">
+											<h5 class="text-white right" id="mytotal"></h5>
+										</div>
+									</div>
+								</li>
+							</ul>
+
+							<input type="submit" asp-controller="Transaction" asp-route-EmpId="@Model.SelectedId" asp-action="Upsert"    class="btn btn-danger form-control my-1" value="Add Transaction" />
+						</div>
+						@* Current Transaction  Iteration ends *@
+						
+					</div>
+
+
+                    <div class="row top-1">
+						
+                    </div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+@section Scripts{
+	<script>
+		$(function () {
+			$(".retrieveTrans").change(function () {
+				$.ajax({
+							url: "/Admin/Transaction/CurrentTransactions?EmpId=" + $(this).val(),
+							type: "GET",
+					success: function (data) {
+						
+								
+										var table = $("#tblcurrenttrans tbody");
+										var employeeId = 0;
+										table.empty();
+										$.each(data.data, function (i, item) {
+							table.append("<tr><td>" + item.payrollCode.payName + "</td><td>" + item.payrollCode.paycodeType + "</td><td>" + item.transYear + "</td><td>" + item.startPeriod + "</td><td>" + item.dispTransAmount + "</td><td>" +
+								`<div class="font-sans-serif btn-reveal-trigger position-static">
+											<button class="btn btn-sm dropdown-toggle dropdown-caret-none transition-none btn-reveal fs--2" type="button" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false" data-bs-reference="parent"><span class="fas fa-ellipsis-h fs--2"></span></button>
+																											<div class="dropdown-menu dropdown-menu-end py-2"><a class="dropdown-item text-900 fs-1" data-feather="edit" href="/Admin/Transaction/Upsert?id=${item.id}">Edit</a><a class="dropdown-item text-success text-900 fs-1" href="/Admin/Transaction/Approve?id=${item.id}">Approve</a>
+											</div>
+										  </div>`
+										+"</td> </tr>");
+											employeeId = item.employeeId;
+										});
+										//alert(employeeId);
+										$("#mytotal").empty();
+										$("#mytotal").append(data.totalamount);
+										$(".retrieveTrans").empty();
+						$("#SelectedId").val(employeeId);
+							}
+
+						});
+			});
+		});
+	</script>
+	<partial name="_ValidationScriptsPartial" />
+}
+
+

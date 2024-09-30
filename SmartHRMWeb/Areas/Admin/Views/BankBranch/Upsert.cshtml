@@ -1,0 +1,58 @@
+﻿@model SmartHRM.Models.ViewModels.BankbranchVM
+<div class="card shadow-none border border-300 mb-3">
+<form method="post" asp-action="Upsert" >
+    <div class="row">
+        <div class="col-12">
+            <div class=" p-3 mt-4" row>
+                <div class="col-12 pb-2">
+                    <h4 class="text-primary">@(Model.BankBranch.Id != 0 ? "Update" : "Create")  Bank Branch</h4>
+                    <hr />
+                </div>
+                <div asp-validation-summary="All"></div>
+                <input asp-for="BankBranch.Id" hidden />
+                <div class="mb-3">
+                    <label asp-for="BankBranch.BankId"></label>
+                        <select asp-for="BankBranch.BankId" asp-items="@Model.BankList" class="form-select">
+                        <option disabled selected>--Select Bank--</option>
+                    </select>
+                    <span asp-validation-for="BankBranch.BankId" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="BankBranch.BankBranchName"></label>
+                        <input asp-for="BankBranch.BankBranchName" class="form-control" />
+                        <span asp-validation-for="BankBranch.BankBranchName" class="text-danger"></span>
+                </div>
+
+                                            
+
+                <div class="col-12">
+                    @if (Model.BankBranch.Id != 0)
+                    {
+                            <button type="submit" class="btn btn-primary me-1 mb-1" >Update</button>
+                    }
+                    else
+                    {
+                            <button type="submit" onclick="return ValidateInput()" class="btn btn-primary me-1 mb-1" >Create</button>
+                    }
+
+                        <a asp-controller="BankBranch" asp-action="Index" class="btn btn-secondary me-1 mb-1" >
+                        Back to List
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+       
+    </div> 
+
+</form>
+</div>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+   
+}

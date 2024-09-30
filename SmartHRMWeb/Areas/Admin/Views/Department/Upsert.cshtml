@@ -1,0 +1,80 @@
+﻿@model SmartHRM.Models.ViewModels.DepartmentVM
+
+<div class="container">
+    <form method="post" asp-action="Upsert">
+    <div class="card">
+        <div class="card-header bg-dark text-light ml-0">
+            <div class=" row container">
+                <div class="col-6">
+                    <i class="fa fa-sho"></i> &nbsp;
+                    @(Model.Department.Id != 0 ? "Update" : "Create") Department
+                </div>
+                <div class="col-6 text-end">
+                    <a asp-action="Index" class="btn btn-outline-info btn-sm">Back to List</a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="container">
+               
+                    <div class="row col-12 offset-lg-1">
+                        <div asp-validation-summary="All"></div>
+                        <input asp-for="Department.Id" hidden />
+
+                        <div class="row my-1">
+                            <div class="col-3">
+                                <label asp-for="Department.DepartmentName"></label>
+                            </div>
+                            <div class="col-5">
+                                <input asp-for="Department.DepartmentName" class="form-control" />
+                                <span asp-validation-for="Department.DepartmentName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row my-1">
+                            <div class="col-3">
+                                <label asp-for="Department.CompanyBranchId"></label>
+                            </div>
+                            <div class="col-5">
+                                <select asp-for="Department.CompanyBranchId" asp-items="@Model.CompanyBranchList" class="form-select">
+                                    <option disabled selected>--Select Company--</option>
+                                </select>
+                                <span asp-validation-for="Department.CompanyBranchId" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row my-1">
+                            <div class="col-3">
+                                <label asp-for="Department.DivisionId"></label>
+                            </div>
+                            <div class="col-5">
+                                <select asp-for="Department.DivisionId" asp-items="@Model.DivisionList" class="form-select">
+                                    <option disabled selected>--Select Division--</option>
+                                </select>
+                                <span asp-validation-for="Department.DivisionId" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+                    </div>
+               
+            </div>
+            <div class="card-footer">
+                <div class="row">
+
+                    <div class="col-12 col-md-4">
+                        <button type="submit" class="btn btn-primary form-control align-right">Save Department</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+</div>
+
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+   
+}

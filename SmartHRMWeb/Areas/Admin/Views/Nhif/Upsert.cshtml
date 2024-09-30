@@ -1,0 +1,61 @@
+﻿@model SmartHRM.Models.Nhif
+<div class="card shadow-none border border-300 mb-3">
+<form method="post" asp-action="Upsert" >
+    <div class="row">
+        <div class="col-12">
+            <div class="p-3 mt-4" row>
+                <div class="col-12 pb-2">
+                    <h4 class="text-primary">@(Model.Id != 0 ? "Update" : "Create")  NHIF</h4>
+                    <hr />
+                </div>
+                <div asp-validation-summary="All"></div>
+                <input asp-for="Id" hidden />
+                <div class="mb-3">
+                    <label asp-for="fromamnt"></label>
+                    <input asp-for="fromamnt" class="form-control" />
+                        <span asp-validation-for="fromamnt" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                        <label asp-for="uptoamnt"></label>
+                        <input asp-for="uptoamnt" class="form-control" />
+                        <span asp-validation-for="uptoamnt" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Nhifamount"></label>
+                    <input asp-for="Nhifamount" class="form-control" />
+                    <span asp-validation-for="Nhifamount" class="text-danger"></span>
+                </div>
+
+
+                <div class="col-12">
+                    @if (Model.Id != 0)
+                    {
+                        <button type="submit" class="btn btn-primary me-1 mb-1">Update</button>
+                    }
+                    else
+                    {
+                        <button type="submit" onclick="return ValidateInput()" class="btn btn-primary me-1 mb-1">Create</button>
+                    }
+
+                    <a asp-controller="Nhif" asp-action="Index" class="btn btn-secondary me-1 mb-1">
+                        Back to List
+                    </a>
+                </div>
+
+                
+
+            </div>
+
+        </div>
+       
+    </div>   
+
+</form>
+</div>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+   
+}

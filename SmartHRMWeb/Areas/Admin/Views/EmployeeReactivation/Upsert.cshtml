@@ -1,0 +1,85 @@
+﻿@model SmartHRM.Models.ViewModels.EmployeeReactivationVM
+
+<div class="container">
+    <form method="post" asp-action="Upsert">
+	<div class="card">
+		<div class="card-header bg-dark text-light ml-0">
+			<div class=" row container">
+				<div class="col-6">
+					<i class="fa fa-sho"></i> &nbsp;
+                    @(Model.EmployeeReactivation.Id != 0 ? "Update" : "Create") Employee Reactivation
+				</div>
+				<div class="col-6 text-end">
+                        <a asp-area="General" asp-controller="Home" asp-action="Index" class="btn btn-outline-info btn-sm">Back to Main Page</a>
+				</div>
+			</div>
+		</div>
+		<div class="card-body">
+			<div class="container">
+               
+                    <div class="row col-12 offset-lg-1">
+                        <div asp-validation-summary="All"></div>
+                        <input asp-for="EmployeeReactivation.Id" hidden />
+                        <input asp-for="EmployeeReactivation.InitiatedById" hidden />
+                        <input asp-for="EmployeeReactivation.ApprovalStatus" hidden />
+                       
+                        <div class="row my-1">
+                            <div class="col-3">
+                                <label asp-for="EmployeeReactivation.EmployeeId"></label>
+                            </div>
+                            <div class="col-7">
+                                <select asp-for="EmployeeReactivation.EmployeeId" data-choices="data-choices" asp-items="@Model.Employeelist" class="form-select">
+                                    <option disabled selected>--Select Employee--</option>
+                                </select>
+                                <span asp-validation-for="EmployeeReactivation.EmployeeId" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+                                            
+
+                        <div class="row my-1">
+                            <div class="col-3">
+                                <label asp-for="EmployeeReactivation.ReturnDate"></label>
+                            </div>
+                            <div class="col-5">
+                                <input asp-for="EmployeeReactivation.ReturnDate" type="text" class="form-control datetimepicker" placeholder="dd/mm/yyyy" data-options='{"disableMobile":true,"dateFormat":"d/m/Y"}' />
+                                <span asp-validation-for="EmployeeReactivation.ReturnDate" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row my-1">
+                            <div class="col-3">
+                                <label asp-for="EmployeeReactivation.Reason"></label>
+                            </div>
+                            <div class="col-5">
+                                <textarea asp-for="EmployeeReactivation.Reason" rows="3" class="form-control"></textarea>
+                                <span asp-validation-for="EmployeeReactivation.Reason" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                       
+
+
+                    </div>
+               
+			</div>
+			<div class="card-footer">
+				<div class="row">
+
+					<div class="col-12 col-md-4">
+						<button type="submit"  class="btn btn-primary form-control align-right">Save Termination</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    </form>
+ </div>
+
+ @section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+   
+}

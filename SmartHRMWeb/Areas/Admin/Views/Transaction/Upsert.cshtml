@@ -1,0 +1,101 @@
+﻿@model SmartHRM.Models.ViewModels.TransactionVM
+
+@using SmartHRM.Utility
+
+<form method="post" asp-action="Upsert">
+	
+	<input asp-for="Transaction.Id" hidden />
+	<input asp-for="Transaction.Period" hidden />
+	<input asp-for="Transaction.CurrentMonth" hidden />
+	<input asp-for="Transaction.CurrentYear" hidden />
+	<input asp-for="Transaction.TransYear" hidden />
+	<input asp-for="Transaction.stage" hidden />
+	<br />
+	<div class="container">
+		<div class="card">
+			<div class="card-header bg-dark text-light ml-0">
+				<div class="container row">
+					<div class="col-12 d-none d-md-block col-md-6 pb-1">
+						<i class="fas fa-shopping-cart"></i> &nbsp; Transaction Summary
+					</div>
+					<div class="col-12 col-md-4 offset-md-2 text-right">
+						<a asp-action="Index" class="btn btn-outline-info form-control btn-sm">Back to Transaction List</a>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="container rounded p-2">
+					<div class="row">
+						<div class="col-12 col-lg-6 pb-4">
+							<div class="row">
+								<h4 class="d-flex justify-content-between align-items-center mb-3">
+									<span class="text-primary">Transaction:</span>
+								</h4>
+							</div>
+							<div asp-validation-summary="All"></div>
+							<div class="row my-1">
+								<div class="col-3">
+									<label asp-for="Transaction.EmployeeId"></label>
+								</div>
+								<div class="col-9">
+									<select asp-for="Transaction.EmployeeId" data-choices="data-choices" asp-items="@Model.EmployeeList" style="min-width:50%;overflow:auto;" class="form-select">
+										<option disabled selected>--Select Employee--</option>
+									</select>
+									<span asp-validation-for="Transaction.EmployeeId" class="text-danger"></span>
+								</div>
+							</div>
+							<div class="row my-1">
+								<div class="col-3">
+									<label asp-for="Transaction.TransDate"></label>
+								</div>
+								<div class="col-9">
+									<input asp-for="Transaction.TransDate" type="text" class="form-control datetimepicker" placeholder="dd/mm/yyyy" data-options='{"disableMobile":true,"dateFormat":"d/m/Y"}' />
+									<span asp-validation-for="Transaction.TransDate" class="text-danger"></span>
+								</div>
+							</div>
+							<div class="row my-1">
+								<div class="col-3">
+									<label asp-for="Transaction.EffectiveFromPeriod" ></label>
+								</div>
+								<div class="col-9">
+									<input asp-for="Transaction.EffectiveFromPeriod" type="text" class="form-control datetimepicker" placeholder="Month Year" data-options='{"disableMobile":true,"dateFormat":"M Y"}' />
+									<span asp-validation-for="Transaction.EffectiveFromPeriod" class="text-danger"></span>
+								</div>
+							</div>	
+							<div class="row my-1">
+								<div class="col-3">
+									<label asp-for="Transaction.PayrollCodeId"></label>
+								</div>
+								<div class="col-9">
+									<select asp-for="Transaction.PayrollCodeId" data-choices="data-choices" asp-items="@Model.PayeollCodeList" style="min-width:50%;overflow:auto;" class="form-select">
+										<option disabled selected>--Select Payroll Code--</option>
+									</select>
+									<span asp-validation-for="Transaction.PayrollCodeId" class="text-danger"></span>
+								</div>
+							</div>
+							<div class="row my-1">
+								<div class="col-3">
+									<label asp-for="Transaction.TransAmount"></label>
+								</div>
+								<div class="col-9">
+									<input asp-for="Transaction.TransAmount" type="text" class="form-control" />
+									<span asp-validation-for="Transaction.TransAmount" class="text-danger"></span>
+								</div>
+							</div>
+
+							<input type="submit"   asp-action="Upsert" class="btn btn-warning form-control my-1" value="Update Transaction" />
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+@section Scripts{
+	
+	<partial name="_ValidationScriptsPartial" />
+}
+
+

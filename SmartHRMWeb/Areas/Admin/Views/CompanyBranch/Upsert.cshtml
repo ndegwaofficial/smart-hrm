@@ -1,0 +1,108 @@
+﻿@model SmartHRM.Models.ViewModels.CompanyBranchVM
+<div class="card shadow-none border border-300 mb-3">
+<form method="post" asp-action="Upsert" >
+    <div class="row">
+        <div class="col-12">
+            <div class="p-3 mt-4" row>
+                <div class="col-12 pb-2">
+                    <h4 class="text-primary">@(Model.CompanyBranch.Id != 0 ? "Update" : "Create")  Company Branch</h4>
+                    <hr />
+                </div>
+                <div asp-validation-summary="All"></div>
+                <input asp-for="CompanyBranch.Id" hidden />
+                <div class="mb-3">
+                    <label asp-for="CompanyBranch.CompanyId"></label>
+                    <select asp-for="CompanyBranch.CompanyId" asp-items="@Model.CompanyList" class="form-select">
+                        <option disabled selected>--Select Company--</option>
+                    </select>
+                    <span asp-validation-for="CompanyBranch.CompanyId" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="CompanyBranch.CompanyBranchName"></label>
+                    <input asp-for="CompanyBranch.CompanyBranchName" class="form-control" />
+                    <span asp-validation-for="CompanyBranch.CompanyBranchName" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="CompanyBranch.BranchAddress"></label>
+                        <textarea asp-for="CompanyBranch.BranchAddress" rows="3" class="tinymce" data-tinymce="{}"></textarea>
+                    <span asp-validation-for="CompanyBranch.BranchAddress" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 col-6">
+                    <label asp-for="CompanyBranch.Street"></label>
+                    <input asp-for="CompanyBranch.Street" class="form-control" />
+                    <span asp-validation-for="CompanyBranch.Street" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 col-6">
+                    <label asp-for="CompanyBranch.Town"></label>
+                    <input asp-for="CompanyBranch.Town" class="form-control" />
+                    <span asp-validation-for="CompanyBranch.Town" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 col-6">
+                    <label asp-for="CompanyBranch.PIN"></label>
+                    <input asp-for="CompanyBranch.PIN" class="form-control" />
+                    <span asp-validation-for="CompanyBranch.PIN" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 col-6">
+                    <label asp-for="CompanyBranch.NHIF"></label>
+                    <input asp-for="CompanyBranch.NHIF" class="form-control" />
+                    <span asp-validation-for="CompanyBranch.NHIF" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 col-6">
+                    <label asp-for="CompanyBranch.NSSF"></label>
+                    <input asp-for="CompanyBranch.NSSF" class="form-control" />
+                    <span asp-validation-for="CompanyBranch.NSSF" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 col-6">
+                    <label asp-for="CompanyBranch.Telephone"></label>
+                    <input asp-for="CompanyBranch.Telephone" class="form-control" />
+                    <span asp-validation-for="CompanyBranch.Telephone" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 col-6">
+                    <label asp-for="CompanyBranch.Email"></label>
+                    <input asp-for="CompanyBranch.Email" class="form-control" />
+                    <span asp-validation-for="CompanyBranch.Email" class="text-danger"></span>
+                </div>
+
+          
+                             
+
+
+                <div class="col-12">
+                    @if (Model.CompanyBranch.Id != 0)
+                    {
+                            <button type="submit" class="btn btn-primary me-1 mb-1" >Update</button>
+                    }
+                    else
+                    {
+                            <button type="submit" onclick="return ValidateInput()" class="btn btn-primary me-1 mb-1" >Create</button>
+                    }
+
+                        <a asp-controller="Company" asp-action="Index" class="btn btn-secondary me-1 mb-1">
+                        Back to List
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+       
+    </div>
+    
+</form>
+</div>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+    
+}

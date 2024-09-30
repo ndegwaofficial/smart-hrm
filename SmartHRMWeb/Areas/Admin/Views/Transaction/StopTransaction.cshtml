@@ -1,0 +1,92 @@
+﻿@model SmartHRM.Models.ViewModels.TransactionsSTOP
+
+@using SmartHRM.Utility
+
+<form method="post">
+
+    <input asp-for="SelectedId" hidden />
+    <br />
+    <div class="container">
+        <div class="card shadow-none border border-300 mb-1  card-default card-table" data-component-card="data-component-card">
+            <div class="card-header bg-dark text-light ml-0">
+               
+                    <div class="col-12 d-none d-md-block col-md-6 pb-1">
+                        <i class="fas fa-shopping-cart"></i> &nbsp; Stop Transactions
+                    </div>                    
+                
+            </div>   
+        
+            <div class="card-body p-0">
+            
+            <div class="p-4 code-to-copy">
+
+                <div class="container rounded p-2">
+                    <div class="row">
+                        <div class="col-12 col-lg-6 pb-2">
+                            <div class="row my-1">
+                                <div class="col-3">
+                                    <label><h4>Employee:</h4></label>
+                                </div>
+                                <div class="col-9">
+                                    <select asp-for="EmpolyeeId" class="retrieveEmpId" data-choices="data-choices" asp-items="@Model.EmployeeList" style="min-width:50%;overflow:auto;" class="form-select">
+                                        <option disabled selected>--Select Employee--</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tableExample4" data-list="{&quot;valueNames&quot;:[&quot;name&quot;,&quot;email&quot;,&quot;payment&quot;],&quot;page&quot;:5,&quot;pagination&quot;:true,&quot;filter&quot;:{&quot;key&quot;:&quot;payment&quot;}}">
+                        <div class="row justify-content-end g-0">                            
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-sm fs--1 mb-0" id="stopTransactions">
+                                <thead>
+                                    <tr class="bg-light">
+                                        <th class="sort border-top ps" >Trans Id</th>
+                                        <th class="sort border-top ps">Payroll Code</th>
+                                        <th class="sort border-top">Type</th>
+                                        <th class="sort border-top">Year</th>
+                                        <th class="sort border-top">Month</th>
+                                        <th class="sort border-top">Amount</th>
+                                        <th class="sort border-top" >
+                                            <div class="form-check mb-0 fs-0">
+                                                <input class="form-check-input sort border-top" id="bulk-select-example" type="checkbox" data-bulk-select='{"body":"bulk-select-body","actions":"bulk-select-actions","replacedElement":"bulk-select-replace-element"}' />Approve
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="list">
+                                </tbody>                                
+                            </table>
+                            <br />
+                            <ul class="list-group mb-3">
+                                <li class="list-group-item bg-info">
+                                    <div class="row container">
+                                        <div class="col-6">
+                                            <h5 class="text-white">TOTAL </h5>
+                                        </div>
+                                        <div class="col-6 text-end">
+                                            <h5 class="text-white right" id="mytotal"></h5>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div id="events"></div>
+
+                        <div class="col-12 align-right">                        
+                            <button type="button" id="btnpostdata" onclick="return ValidateInput()" class="btn btn-primary me-1 mb-1">Post Data</button>                            
+                         </div>
+                 </div>
+
+            </div>
+        </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    <script src="~/js/stopTransactionsv23.js"></script>
+}

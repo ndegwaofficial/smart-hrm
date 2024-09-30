@@ -1,0 +1,156 @@
+﻿@model PIMS.Models.ViewModels.EmpNhifImageVM
+@using Microsoft.Extensions.Options
+
+
+<form enctype="multipart/form-data" class="row g-3 needs-validation" method="post">
+
+	<input asp-for="employee.Id" hidden />
+	<br />
+	<div class="container">
+		<div class="card">
+			<div class="card-header bg-dark text-light ml-0">
+				<div class="container row">
+					<div class="col-12 d-none d-md-block col-md-6 pb-1">
+						<i class="fas fa-shopping-cart"></i> &nbsp; N.H.I.F Upload
+					</div>
+					<div class="col-12 col-md-4 offset-md-2 text-right">
+						<a asp-action="View" asp-area="General" asp-route-id="@Model.employee.Id" class="btn btn-outline-info form-control btn-sm">Back to Pest View</a>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="container rounded p-2">
+					<div class="row">
+						<div class="col-12 col-lg-6 pb-4">
+							<div class="border p-3 mt-4 row">
+								<div class="col-12 col-lg-12 pb-4">
+
+
+									<table class="lh-sm">
+										<tbody>
+											<tr>
+												<td class="align-right py-1 text-900 text-nowrap fw-bold"><h4><label asp-for="employee.EmpCode"></label></h4></td>
+												<td class="text-900 fw-semi-bold ps-1">
+													@* Starts here Test *@
+													<div class="card mb-2 overflow-hidden">
+														<div class="card-body p-3 p-sm-4 text-900 fw-semi-bold ps-3">
+															<h1> @Html.DisplayFor(model => model.employee.EmpCode) </h1>
+														</div>
+													</div>
+													@* Test Ends Here *@
+												</td>
+											</tr>
+											<tr>
+												<td class="align-right py-1 text-900 text-nowrap fw-bold"><h4><label asp-for="employee.FullName"></label></h4></td>
+												<td class="text-900 fw-semi-bold ps-1">
+													@* Starts here Test *@
+													<div class="card mb-2 overflow-hidden">
+														<div class="card-body p-3 p-sm-4 text-900 fw-semi-bold ps-3">
+															@Html.DisplayTextFor(model => model.employee.FullName)
+														</div>
+													</div>
+													@* Test Ends Here *@
+												</td>
+											</tr>
+											<tr>
+												<td class="align-right py-1 text-900 text-nowrap fw-bold"><h4><label asp-for="employee.Designation"></label></h4></td>
+												<td class="text-900 fw-semi-bold ps-1">
+													@* Starts here Test *@
+													<div class="card mb-2 overflow-hidden">
+														<div class="card-body p-3 p-sm-4 text-900 fw-semi-bold ps-3">
+															@Html.DisplayTextFor(model => model.employee.Designation)
+														</div>
+													</div>
+													@* Test Ends Here *@
+												</td>
+											</tr>
+											<tr>
+												<td class="align-right py-1 text-900 text-nowrap fw-bold"><h4><label asp-for="employee.BirthDate"></label></h4></td>
+												<td class="text-900 fw-semi-bold ps-1">
+													@* Starts here Test *@
+													<div class="card mb-2 overflow-hidden">
+														<div class="card-body p-3 p-sm-4 text-900 fw-semi-bold ps-3">
+															@Html.DisplayTextFor(model => model.employee.BirthDate)
+														</div>
+													</div>
+													@* Test Ends Here *@
+												</td>
+											</tr>
+											<tr>
+												<td class="align-right py-1 text-900 text-nowrap fw-bold"><h4><label asp-for="employee.Gender.GenderName"></label></h4></td>
+												@* <td class="text-900 fw-semi-bold ps-3 bm-3">@Html.DisplayFor(model => model.masterPest.LifeCycle)</td> *@
+
+												<td class="text-900 fw-semi-bold ps-1">
+													@* Starts here Test *@
+													<div class="card mb-2 overflow-hidden">
+														<div class="card-body p-3 p-sm-4 text-900 fw-semi-bold ps-3">
+															@Html.DisplayFor(model => model.employee.Gender.GenderName)
+														</div>
+													</div>
+													@* Test Ends Here *@
+												</td>
+											</tr>
+											<tr>
+												<td class="align-right py-1 text-900 text-nowrap fw-bold"><h4><label asp-for="employee.Department.DepartmentName"></label></h4></td>
+												<td class="text-900 fw-semi-bold ps-1">
+													@* Starts here Test *@
+													<div class="card mb-2 overflow-hidden">
+														<div class="card-body p-3 p-sm-4 text-900 fw-semi-bold ps-3">
+															@Html.DisplayFor(model => model.employee.Department.DepartmentName)
+														</div>
+													</div>
+													@* Test Ends Here *@
+												</td>
+											</tr>
+
+
+										</tbody>
+									</table>
+
+								</div>
+
+
+							</div>
+
+						</div>
+						<div class="col-12 col-lg-5 pb-4 offset-lg-1">
+							<div class="border p-3 mt-4 row">
+								<div class="col-12 col-lg-12 pb-4">
+									<h4 class="d-flex justify-content-between align-items-center mb-3">
+										<span class="text-primary">Upload N.H.I.F</span>
+									</h4>
+
+									<div class="">
+										<div class="col-lg-12">
+
+											<label class="form-label" for="validationCustom01">File Name:</label>
+
+											<input type="text" class="form-control" asp-for="FileName" multiple />
+										</div>
+
+										<div class="col-lg-12">
+
+											<label class="form-label" for="validationCustom01">Upload File</label>
+
+											<input type="file" class="form-control" asp-for="PFormFile" multiple />
+										</div>
+
+
+									</div>
+
+
+									<input type="submit" class="btn btn-primary form-control my-1" value="Upload N.H.I.F" />
+									@* <input type="submit" asp-action="Schedule" class="btn btn-danger form-control my-1" value="Schedule Loan" /> *@
+
+
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+

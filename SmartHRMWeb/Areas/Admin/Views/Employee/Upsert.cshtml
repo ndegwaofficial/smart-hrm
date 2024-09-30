@@ -1,0 +1,697 @@
+﻿@model SmartHRM.Models.ViewModels.EmployeeVM
+@using Microsoft.Extensions.Options
+@*@inject IOptions<SmartHRM.Utility.StripeSettings> Stripe*@
+
+
+<form method="post" asp-controller="Employee" asp-action="Upsert"  enctype="multipart/form-data">
+	@Html.AntiForgeryToken()
+	<br />
+	<div class="container">
+		<div class="card">
+			<div class="card-header bg-dark text-light ml-0">
+				<div class=" row container">
+					<div class="col-6">
+						<i class="fa fa-sho"></i> &nbsp;
+						Employee Details
+					</div>
+					<div class="col-6 text-end">
+						<a asp-action="Index" class="btn btn-outline-info btn-sm">Back to List</a>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="container rounded p-2">
+					<div class="border p-3 mt-4 row">
+						<div class="col-12 col-lg-6 pb-4">
+							<div class="row">
+								<h4 class="d-flex justify-content-between align-items-center mb-3">
+									<span class="text-info">Employee Details:</span>
+								</h4>
+							</div>
+							<div class="row my-1">
+								<div class="col-3">
+									<label asp-for="Employee.EmpCode"></label>
+								</div>
+								<div class="col-9">
+									<input asp-for="Employee.Id" hidden />
+									<input asp-for="Employee.EmpCode" class="form-control" />
+									<span asp-validation-for="Employee.EmpCode" class="text-danger"></span>
+								</div>
+							</div>
+							<div class="row my-1">
+								<div class="col-3">
+									<label asp-for="Employee.FirstName"></label>
+								</div>
+								<div class="col-9">
+									<input asp-for="Employee.FirstName" class="form-control" />
+									<span asp-validation-for="Employee.FirstName" class="text-danger"></span>
+								</div>
+							</div>
+							<div class="row my-1">
+								<div class="col-3">
+									<label asp-for="Employee.MiddleName"></label>
+								</div>
+								<div class="col-9">
+									<input asp-for="Employee.MiddleName" class="form-control" />
+									<span asp-validation-for="Employee.MiddleName" class="text-danger"></span>
+								</div>
+							</div>
+							<div class="row my-1">
+								<div class="col-3">
+									<label asp-for="Employee.LastName"></label>
+								</div>
+								<div class="col-9">
+									<input asp-for="Employee.LastName" class="form-control" />
+									<span asp-validation-for="Employee.LastName" class="text-danger"></span>
+								</div>
+							</div>
+							<div class="row my-1">
+								<div class="col-3">
+									<label asp-for="Employee.GenderId"></label>
+								</div>
+								<div class="col-9">
+									<select asp-for="Employee.GenderId" data-choices="data-choices" asp-items="@Model.GenderList" class="form-select">
+										<option disabled selected>--Select Gender--</option>
+									</select>
+									<span asp-validation-for="Employee.GenderId" class="text-danger"></span>
+								</div>
+							</div>
+							<div class="row my-1">
+								<div class="col-3">
+									<label asp-for="Employee.BirthDate"></label>
+								</div>
+								<div class="col-9">
+									
+									<input asp-for="Employee.BirthDate" type="text" class="form-control datetimepicker" placeholder="dd/mm/yyyy" data-options='{"disableMobile":true,"dateFormat":"d/m/Y"}' />
+									<span asp-validation-for="Employee.BirthDate" class="text-danger"></span>
+								</div>
+							</div>
+
+						</div>
+						<div class="col-12 col-lg-3 offset-lg-1">
+							<div class="form-group">
+								@*<label asp-for="Employee.EmpImageUrl" style="width: 100%;"></label>*@
+								@if (Model.Employee.Content == null)
+								
+								{
+									<img id="profilePicture" style="width:250px;height:250px; object-fit:cover" src="">
+								}
+								else
+								{
+									<a href='@Url.Action("GetEmployeeImageFile", new { id = Model.Employee.Id})' data-gallery="gallery-photos" style="width:300px;height:208px; object-fit:cover">
+										<img class="w-300 h-208 rounded-3 card-img-top rounded" src='@Url.Action("GetEmployeeImageFile", new { id = Model.Employee.Id})' alt="" />
+									</a>
+									
+								}
+								@Html.TextBoxFor(m => m.PFormFile, new { @class = "form-control", type = "file", onchange = "document.getElementById('profilePicture').src = window.URL.createObjectURL(this.files[0])" })
+								
+								<span asp-validation-for="PFormFile" class="text-danger"></span>
+							</div>
+						</div>
+
+					</div>
+					<div class="border p-3 mt-4 row">
+						<div class="col-12 col-lg-6 pb-4">
+
+							<div class="row my-1">
+								<div class="col-3">
+									<label asp-for="Employee.CompanyBranchId"></label>
+								</div>
+								<div class="col-9">
+									<select asp-for="Employee.CompanyBranchId" data-choices="data-choices" asp-items="@Model.CompBranchList" class="form-select">
+										<option disabled selected>--Select Branch--</option>
+									</select>
+									<span asp-validation-for="Employee.CompanyBranchId" class="text-danger"></span>
+								</div>
+							</div>
+							<div class="row my-1">
+								<div class="col-3">
+									<label asp-for="Employee.DepartmentId"></label>
+								</div>
+								<div class="col-9">
+									<select asp-for="Employee.DepartmentId" data-choices="data-choices" asp-items="@Model.DepartmentList" class="form-select">
+										<option disabled selected>--Select Department--</option>
+									</select>
+									<span asp-validation-for="Employee.DepartmentId" class="text-danger"></span>
+								</div>
+							</div>
+							<div class="row my-1">
+								<div class="col-3">
+									<label asp-for="Employee.EmployeeGradeId"></label>
+								</div>
+								<div class="col-9">
+									<select asp-for="Employee.EmployeeGradeId" data-choices="data-choices" asp-items="@Model.GradeList" class="form-select">
+										<option disabled selected>--Select Grade--</option>
+									</select>
+									<span asp-validation-for="Employee.EmployeeGradeId" class="text-danger"></span>
+								</div>
+							</div>
+
+						</div>
+						
+						<div class="col-12 col-lg-5 offset-lg-1">
+							<div class="row my-1">
+								<div class="col-3">
+									<label asp-for="Employee.DivisionId"></label>
+								</div>
+								<div class="col-9">
+									<select asp-for="Employee.DivisionId" data-choices="data-choices" asp-items="@Model.DivisionList" class="form-select">
+										<option disabled selected>--Select Division--</option>
+									</select>
+									<span asp-validation-for="Employee.DivisionId" class="text-danger"></span>
+								</div>
+							</div>
+							<div class="row my-1">
+								<div class="col-3">
+									<label asp-for="Employee.SectionId"></label>
+								</div>
+								<div class="col-9">
+									<select asp-for="Employee.SectionId" data-choices="data-choices" asp-items="@Model.SectionList" class="form-select">
+										<option disabled selected>--Select Section--</option>
+									</select>
+									<span asp-validation-for="Employee.SectionId" class="text-danger"></span>
+								</div>
+							</div>
+							<div class="row my-1">
+								<div class="col-3">
+									<label asp-for="Employee.CurrencyId"></label>
+								</div>
+								<div class="col-9">
+									<select asp-for="Employee.CurrencyId" data-choices="data-choices" asp-items="@Model.CurrencyList" class="form-select">
+										<option disabled selected>--Select Currency--</option>
+									</select>
+									<span asp-validation-for="Employee.CurrencyId" class="text-danger"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+									
+					@* Employment details *@
+					<div class="border p-3 mt-4 row">
+						<div class="col-12 col-lg-6 pb-4">
+
+							<div class="row my-1">
+								<div class="col-3">
+									<label asp-for="Employee.DateEmployed"></label>
+								</div>
+								<div class="col-9">
+									<input asp-for="Employee.DateEmployed" type="text" class="form-control datetimepicker" placeholder="dd/mm/yyyy" data-options='{"disableMobile":true,"dateFormat":"d/m/Y"}' />
+									<span asp-validation-for="Employee.DateEmployed" class="text-danger"></span>
+								</div>
+							</div>
+							<div class="row my-1">
+								<div class="col-3">
+									<label asp-for="Employee.Designation"></label>
+								</div>
+								<div class="col-9">
+									<input asp-for="Employee.Designation" class="form-control" />
+									<span asp-validation-for="Employee.Designation" class="text-danger"></span>
+								</div>
+							</div>
+							<div class="row my-1">
+								<div class="col-3">
+									<label asp-for="Employee.Telephone"></label>
+								</div>
+								<div class="col-9">
+									<input asp-for="Employee.Telephone" class="form-control" />
+									<span asp-validation-for="Employee.Telephone" class="text-danger"></span>
+								</div>
+							</div>
+
+						</div>
+
+						<div class="col-12 col-lg-5 offset-lg-1">
+							<div class="row my-1">
+								<div class="col-3">
+									<label asp-for="Employee.ContractTypeId"></label>
+								</div>
+								<div class="col-9">
+									<select asp-for="Employee.ContractTypeId" data-choices="data-choices" asp-items="@Model.ContracttypeList" class="form-select">
+										<option disabled selected>--Select Division--</option>
+									</select>
+									<span asp-validation-for="Employee.ContractTypeId" class="text-danger"></span>
+								</div>
+							</div>
+							<div class="row my-1">
+								<div class="col-3">
+									<label asp-for="Employee.EmployeeCategoryId"></label>
+								</div>
+								<div class="col-9">
+									<select asp-for="Employee.EmployeeCategoryId" data-choices="data-choices" asp-items="@Model.CategoryList" class="form-select">
+										<option disabled selected>--Select Section--</option>
+									</select>
+									<span asp-validation-for="Employee.EmployeeCategoryId" class="text-danger"></span>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+					@* End Employment details *@
+
+					@* Payment details *@
+					<div class="border p-3 mt-4 row">
+						<div class="col-12 col-lg-6 pb-4">
+
+							<div class="row my-1">
+								<div class="col-3">
+									<label asp-for="Employee.BasicPay"></label>
+								</div>
+								<div class="col-9">
+									<input asp-for="Employee.BasicPay" class="form-control" />
+									<span asp-validation-for="Employee.BasicPay" class="text-danger"></span>
+								</div>
+							</div>
+							<div class="row my-1">
+								<div class="col-3">
+									<label asp-for="Employee.HouseAllowance"></label>
+								</div>
+								<div class="col-9">
+									<input asp-for="Employee.HouseAllowance" class="form-control" />
+									<span asp-validation-for="Employee.HouseAllowance" class="text-danger"></span>
+								</div>
+							</div>
+							
+						</div>
+
+						<div class="col-12 col-lg-5 offset-lg-1">
+
+							<div class="row my-1">
+								<div class="col-3">
+									<label asp-for="Employee.BankID"></label>
+								</div>
+								<div class="col-9">
+									<select asp-for="Employee.BankID" data-choices="data-choices" asp-items="@Model.BankList" class="form-select">
+										<option disabled selected>--Select Bank--</option>
+									</select>
+									<span asp-validation-for="Employee.BankID" class="text-danger"></span>
+								</div>
+							</div>
+							<div class="row my-1">
+								<div class="col-3">
+									<label asp-for="Employee.BankBranchID"></label>
+								</div>
+								<div class="col-9">
+									<select asp-for="Employee.BankBranchID" data-choices="data-choices" asp-items="@Model.BankBranchList" class="form-select">
+										<option disabled selected>--Select Branch--</option>
+									</select>
+									<span asp-validation-for="Employee.BankBranchID" class="text-danger"></span>
+								</div>
+							</div>
+
+							<div class="row my-1">
+								<div class="col-3">
+									<label asp-for="Employee.BankAccountNumber"></label>
+								</div>
+								<div class="col-9">
+									<input asp-for="Employee.BankAccountNumber" class="form-control" />
+									<span asp-validation-for="Employee.BankAccountNumber" class="text-danger"></span>
+								</div>
+							</div>
+
+						</div>
+					</div>
+					@* End Payment details *@
+
+
+
+                    @* Statutory details *@
+                    <div class="border p-3 mt-4 row">
+                        <div class="col-12 col-lg-9 pb-2">
+
+							<div class="form-group row mb-5">
+								<div class="mt-5">
+									<h5 class="mb-3"><a href="#" class="text-primary">Statutory Deductions :</a></h5>
+
+									<div class="table-responsive">
+										<table class="table mb-0 table-bordered">
+											<tbody>
+												<tr>
+													<th scope="row" style="width:200px;">Name</th>
+													<td>Deduct</td>
+													<td>Exempt</td>
+													<td>Override</td>
+													<td>Amount</td>
+												</tr>
+												<tr>
+													<th scope="row">P.A.Y.E</th>
+													<td>
+														<input asp-for="Employee.DeductPAYE" checked="@Model.Employee.DeductPAYE" value="true" type="checkbox" class="" />
+														<span asp-validation-for="Employee.DeductPAYE" class="text-danger"></span>														
+													</td>
+													<td>
+														<input asp-for="Employee.ExemptPAYE" type="checkbox" class="" />
+														<span asp-validation-for="Employee.ExemptPAYE" class="text-danger"></span>
+													</td>
+													<td>
+														<input asp-for="Employee.OverwritePAYE" type="checkbox" class="" />
+														<span asp-validation-for="Employee.OverwritePAYE" class="text-danger"></span>
+													</td>
+													<td>
+														<input asp-for="Employee.PAYEAmount" type="text" class="" />
+														<span asp-validation-for="Employee.PAYEAmount" class="text-danger"></span>
+														
+													</td>
+												</tr>
+												<tr>
+													<th scope="row">N.S.S.F</th>
+													<td>
+														<input asp-for="Employee.DeductNSSF" checked="@Model.Employee.DeductNSSF" value="true" type="checkbox" class="" />
+														<span asp-validation-for="Employee.DeductNSSF" class="text-danger"></span>
+													</td>
+													<td>
+														<input asp-for="Employee.ExemptNSSF" type="checkbox" class="" />
+														<span asp-validation-for="Employee.ExemptNSSF" class="text-danger"></span>
+													</td>
+													<td>
+														<input asp-for="Employee.OverwriteNSSF" type="checkbox" class="" />
+														<span asp-validation-for="Employee.OverwriteNSSF" class="text-danger"></span>
+													</td>
+													<td>
+														<input asp-for="Employee.NSSFAmount" type="text" class="" />
+														<span asp-validation-for="Employee.NSSFAmount" class="text-danger"></span>
+													</td>
+												</tr>
+												<tr>
+													<th scope="row">N.H.I.F</th>
+													<td>
+														<input asp-for="Employee.DeductNHIF" checked="@Model.Employee.DeductNHIF" value="true" type="checkbox" class="" />
+														<span asp-validation-for="Employee.DeductNHIF" class="text-danger"></span>
+													</td>
+													<td>
+														<input asp-for="Employee.ExemptNHIF" type="checkbox" class="" />
+														<span asp-validation-for="Employee.ExemptNHIF" class="text-danger"></span>
+													</td>
+													<td>
+														<input asp-for="Employee.OverwriteNHIF" type="checkbox" class="" />
+														<span asp-validation-for="Employee.OverwriteNHIF" class="text-danger"></span>
+													</td>
+													<td>
+														<input asp-for="Employee.NHIFAmount" type="text" class="" />
+														<span asp-validation-for="Employee.NHIFAmount" class="text-danger"></span>
+													</td>
+
+												</tr>
+												<tr>
+													<th scope="row">Pensionable?</th>
+													<td>
+														<input asp-for="Employee.Pensionable" type="checkbox" class="" />
+														<span asp-validation-for="Employee.Pensionable" class="text-danger"></span>
+													</td>
+
+													<td></td>
+													<td>
+														<input asp-for="Employee.OverwritePension" type="checkbox" class="" />
+														<span asp-validation-for="Employee.OverwritePension" class="text-danger"></span>
+													</td>
+													<td>
+														<input asp-for="Employee.PensionAmount" type="text" class="" />
+														<span asp-validation-for="Employee.PensionAmount" class="text-danger"></span>
+														
+													</td>
+												</tr>
+												<tr>
+													<th scope="row">Personal Relief?</th>
+													<td></td>
+													<td>
+														<input asp-for="Employee.ExemptRelief" type="checkbox" class="" />
+														<span asp-validation-for="Employee.ExemptRelief" class="text-danger"></span>
+													</td>
+													<td></td>
+													<td></td>
+												</tr>
+
+												<tr>
+													<th scope="row">House Allowance</th>
+													<td></td>
+													<td>
+														<input asp-for="Employee.HasHouseAllowance" type="checkbox" class="" />
+														<span asp-validation-for="Employee.HasHouseAllowance" class="text-danger"></span>														
+													</td>
+													<td></td>
+													<td></td>
+												</tr>
+
+												<tr>
+													<th scope="row">Savings</th>
+													<td></td>
+													<td>
+														<input asp-for="Employee.savings" type="checkbox" class="" />
+														<span asp-validation-for="Employee.savings" class="text-danger"></span>														
+													</td>
+
+													<td></td>
+													<td></td>
+												</tr>
+												<tr>
+													<th scope="row">Cotu Member</th>
+													<td>
+														<input asp-for="Employee.CotuMember" type="checkbox" class="" />
+														<span asp-validation-for="Employee.CotuMember" class="text-danger"></span>								
+													</td>
+													<td></td>
+
+													<td></td>
+													<td></td>
+												</tr>
+
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+
+
+                        </div>
+                       
+                    </div>
+                    @* End Statutory details *@
+
+
+					@* Address details *@
+					<div class="border p-3 mt-4 row">
+						<div class="col-12 col-lg-6 pb-4">
+
+							<div class="row my-1">
+								<div class="col-3">
+									<label asp-for="Employee.Address"></label>
+								</div>
+								<div class="col-9">
+									<textarea asp-for="Employee.Address" rows="3" class="form-control"></textarea>
+									<span asp-validation-for="Employee.Address" class="text-danger"></span>
+								</div>
+							</div>
+							
+						</div>
+
+						<div class="col-12 col-lg-5 offset-lg-1">
+							
+							<div class="row my-1">
+								<div class="col-3">
+									<label asp-for="Employee.NationalID"></label>
+								</div>
+								<div class="col-9">
+									<input asp-for="Employee.NationalID" class="form-control" />
+									<span asp-validation-for="Employee.NationalID" class="text-danger"></span>
+								</div>
+							</div>
+
+							<div class="row my-1">
+								<div class="col-3">
+									<label asp-for="Employee.KRAPin"></label>
+								</div>
+								<div class="col-9">
+									<input asp-for="Employee.KRAPin" class="form-control" />
+									<span asp-validation-for="Employee.KRAPin" class="text-danger"></span>
+								</div>
+							</div>
+							<div class="row my-1">
+								<div class="col-3">
+									<label asp-for="Employee.NHIFNo"></label>
+								</div>
+								<div class="col-9">
+									<input asp-for="Employee.NHIFNo" class="form-control" />
+									<span asp-validation-for="Employee.NHIFNo" class="text-danger"></span>
+								</div>
+							</div>
+							<div class="row my-1">
+								<div class="col-3">
+									<label asp-for="Employee.NSSFNo"></label>
+								</div>
+								<div class="col-9">
+									<input asp-for="Employee.NSSFNo" class="form-control" />
+									<span asp-validation-for="Employee.NSSFNo" class="text-danger"></span>
+								</div>
+							</div>
+
+						</div>
+					</div>
+					@* End Address details *@
+
+
+				</div>
+				<div class="card-footer">
+					<div class="row">
+
+						<div class="col-12 col-md-4">
+							<button type="submit" value="Place Order" class="btn btn-primary form-control">Save Employee</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+</form>
+
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+	<script type="text/javascript">
+		//Division
+		$('#Employee_CompanyBranchId').change(function () {
+
+			var selectedBranch = $("#Employee_CompanyBranchId").val();
+			var divisionsSelect = $('#Employee_DivisionId');
+			divisionsSelect.empty();
+
+			if (selectedBranch != null && selectedBranch != '') {
+				$.ajax({
+					type: "POST",
+					url: "/Admin/Employee/Divisions?selectedBranch=" + selectedBranch,
+					beforeSend: function (xhr) {
+						xhr.setRequestHeader("XSRF-TOKEN",
+							$('input:hidden[name="__RequestVerificationToken"]').val());
+					},
+					data: selectedBranch,
+					contentType: "json; charset=utf-8",
+					success: function (divisions) {
+						if (divisions != null && !jQuery.isEmptyObject(divisions)) {
+							divisionsSelect.append($('<option/>', {
+								value: null,
+								text: ""
+							}));
+							$.each(divisions, function (index, division) {								
+								divisionsSelect.append("<option value='" + division.id + "'>" + division.divisionName + "</option>");
+							});
+						};
+					},
+					failure: function (response) {
+						alert(response);
+					}
+				});
+			}
+		});
+
+		//Department
+		$('#Employee_DivisionId').change(function () {
+
+			var selectedDivision = $("#Employee_DivisionId").val();
+			var departmentSelect = $('#Employee_DepartmentId');
+			departmentSelect.empty();
+
+
+			if (selectedDivision != null && selectedDivision != '') {
+				$.ajax({
+					type: "POST",
+					url: "/Admin/Employee/Departments?selectedDivision=" + selectedDivision,
+					beforeSend: function (xhr) {
+						xhr.setRequestHeader("XSRF-TOKEN",
+							$('input:hidden[name="__RequestVerificationToken"]').val());
+					},
+					data: selectedDivision,
+					contentType: "json; charset=utf-8",
+					success: function (departments) {
+						if (departments != null && !jQuery.isEmptyObject(departments)) {
+							departmentSelect.append($('<option/>', {
+								value: null,
+								text: ""
+							}));
+							$.each(departments, function (index, department) {
+								departmentSelect.append("<option value='" + department.id + "'>" + department.departmentName + "</option>");
+							});
+						};
+					},
+					failure: function (response) {
+						alert(response);
+					}
+				});
+			}
+		});
+
+		//Monitor any change in Department and load Sections
+
+		$('#Employee_DepartmentId').change(function () {
+
+			var selectedDepartment = $("#Employee_DepartmentId").val();
+			var sectionsSelect = $('#Employee_SectionId');
+			sectionsSelect.empty();
+
+			if (selectedDepartment != null && selectedDepartment != '') {
+				$.ajax({
+					type: "POST",
+					url: "/Admin/Employee/Sections?selectedDepartment=" + selectedDepartment,
+					beforeSend: function (xhr) {
+						xhr.setRequestHeader("XSRF-TOKEN",
+							$('input:hidden[name="__RequestVerificationToken"]').val());
+					},
+					data: selectedDepartment,
+					contentType: "json; charset=utf-8",
+					success: function (sections) {
+						if (sections != null && !jQuery.isEmptyObject(sections)) {
+							sectionsSelect.append($('<option/>', {
+								value: null,
+								text: ""
+							}));
+							$.each(sections, function (index, section) {
+								sectionsSelect.append("<option value='" + section.id + "'>" + section.sectionName + "</option>");
+							});
+						};
+					},
+					failure: function (response) {
+						alert(response);
+					}
+				});
+			}
+		});
+
+
+		//Monitor any change in Banks and load Branches
+
+		$('#Employee_BankID').change(function () {
+
+			var selectedBank = $("#Employee_BankID").val();
+			var bankbranchesSelect = $('#Employee_BankBranchID');
+			bankbranchesSelect.empty();
+			//alert('Hererere');
+			if (selectedBank != null && selectedBank != '') {
+				$.ajax({
+					type: "POST",
+					url: "/Admin/Employee/Bankbranches?selectedBank=" + selectedBank,
+					beforeSend: function (xhr) {
+						xhr.setRequestHeader("XSRF-TOKEN",
+							$('input:hidden[name="__RequestVerificationToken"]').val());
+					},
+					data: selectedBank,
+					contentType: "json; charset=utf-8",
+					success: function (bankbranches) {
+						if (bankbranches != null && !jQuery.isEmptyObject(bankbranches)) {
+							bankbranchesSelect.append($('<option/>', {
+								value: null,
+								text: ""
+							}));
+							$.each(bankbranches, function (index, bankbranch) {
+								bankbranchesSelect.append("<option value='" + bankbranch.id + "'>" + bankbranch.bankBranchName + "</option>");
+							});
+						};
+					},
+					failure: function (response) {
+						alert(response);
+					}
+				});
+			}
+		});
+
+	</script>
+}

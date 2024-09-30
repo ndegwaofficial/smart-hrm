@@ -1,0 +1,103 @@
+﻿@model SmartHRM.Models.ViewModels.AbsentTransactionVM
+
+<div class="card shadow-none border border-300 mb-3">
+    <form method="post" asp-controller="AbsentTransaction" asp-action="Upsert">   
+        <div class="row">
+            <div class="col-12">
+                <div class=" p-3 mt-4" row>
+                    <div class="col-12 pb-2">
+                        <h2 class="text-primary">@(Model.AbsentTransaction.Id != 0 ? "Update" : "Create")  Absent Days</h2>
+                        <hr />
+                    </div>
+                    <div asp-validation-summary="All"></div>
+                    <input asp-for="AbsentTransaction.Id" hidden />
+                    <div class="row my-1">
+                        <div class="col-3">
+                            <label asp-for="AbsentTransaction.EmployeeId"></label>
+                        </div>
+                        <div class="col-9">
+                            <select asp-for="AbsentTransaction.EmployeeId"  data-choices="data-choices" asp-items="@Model.EmployeeList" class="form-select">
+                                <option disabled selected>--Select Employee--</option>
+                            </select>
+                            <span asp-validation-for="AbsentTransaction.EmployeeId" class="text-danger"></span>
+                        </div>                        
+                    </div>
+                    <div class="row my-1">
+                        <div class="col-3">
+                            <label asp-for="AbsentTransaction.TransDate"></label>
+                        </div>
+                        <div class="col-9">
+
+                            <input asp-for="AbsentTransaction.TransDate" type="text" class="form-control datetimepicker" placeholder="dd/mm/yyyy" data-options='{"disableMobile":true,"dateFormat":"d/m/Y"}' />
+                            <span asp-validation-for="AbsentTransaction.TransDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                                    
+                    <div class="row my-1">
+                        <div class="col-3">
+                            <label asp-for="AbsentTransaction.DaysValue"></label>
+                        </div>
+                        <div class="col-9"> 
+                            @Html.TextBoxFor(model=>model.AbsentTransaction.DaysValue,
+                            new { @class = "form-control", style = "width:30%", @autofocus = "autofocus", @placeholder = "0", @required = false } )
+                            
+                            <span asp-validation-for="AbsentTransaction.DaysValue" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row my-1">
+                        <div class="col-3">
+                            <label asp-for="AbsentTransaction.Amount"></label>
+                        </div>
+                        <div class="col-9">
+                            @Html.TextBoxFor(model=>model.AbsentTransaction.Amount,
+                            new { @class = "form-control",@readonly="readonly",style = "width:30%",  @autofocus = "autofocus", @placeholder = "0.00", @required = false } )
+                            <span asp-validation-for="AbsentTransaction.Amount" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row my-1">
+                       
+                    </div>
+
+                    <div class="col-12">
+                        @if (Model.AbsentTransaction.Id != 0)
+                        {
+                            <button type="submit" class="btn btn-primary me-1 mb-1">Update</button>
+                        }
+                        else
+                        {
+                            <button type="submit" onclick="return ValidateInput()" class="btn btn-primary me-1 mb-1">Create</button>
+                        }
+                        <a asp-controller="AbsentTransaction" asp-action="Index" class="btn btn-secondary me-1 mb-1">
+                            Back to List
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </form>
+</div>
+<script type="text/javascript">
+    $('.chkBx').change(function () {
+        $(".chkBx").not(this).prop('checked', false);
+    });
+    function ModifyCheckBoxes(Id) {
+        if (document.getElementById(Id).checked) {
+            if (Id == "chk2") {
+                document.getElementById("chk15").checked = false;
+            } else if (Id == "chk15") {
+                document.getElementById("chk2").checked = false;
+            }
+        };
+    };
+</script>
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+
+}
